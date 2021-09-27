@@ -14,7 +14,7 @@ class AuthenticationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        minimumSize: const Size(double.infinity, 40),
+        minimumSize: const Size(double.infinity, 50),
         primary: kPrimaryColor,
         onPrimary: Colors.white,
         shape: const StadiumBorder(),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
 import 'package:genesis_packaging_v2/provider/google_sign_in_provider.dart';
-import 'package:genesis_packaging_v2/utility/constant.dart';
 
 class GoogleSignInButton extends StatelessWidget {
   const GoogleSignInButton({Key? key}) : super(key: key);
@@ -13,8 +11,8 @@ class GoogleSignInButton extends StatelessWidget {
     return ElevatedButton.icon(
       icon: const Icon(FontAwesomeIcons.google),
       style: ElevatedButton.styleFrom(
-        minimumSize: const Size(double.infinity, 40),
-        onPrimary: kCanvasColor,
+        minimumSize: const Size(double.infinity, 50),
+        onPrimary: Colors.white,
         shape: const StadiumBorder(),
       ),
       onPressed: () {

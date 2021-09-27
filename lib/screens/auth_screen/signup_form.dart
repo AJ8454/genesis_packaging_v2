@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:genesis_packaging_v2/widgets/authentication_widgets/auth_button.dart';
 import 'package:genesis_packaging_v2/widgets/authentication_widgets/auth_passwordfield.dart';
 import 'package:genesis_packaging_v2/widgets/authentication_widgets/auth_textfields.dart';
-import 'package:genesis_packaging_v2/widgets/authentication_widgets/google_signin_button.dart';
 
 class SignUpForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
