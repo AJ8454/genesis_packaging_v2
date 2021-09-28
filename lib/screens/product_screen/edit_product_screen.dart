@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:genesis_packaging_v2/models/product.dart';
 import 'package:genesis_packaging_v2/provider/product_provider.dart';
 import 'package:genesis_packaging_v2/utility/constant.dart';
+import 'package:genesis_packaging_v2/widgets/snack_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -117,14 +118,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
         await Provider.of<ProductProvider>(context, listen: false)
             .addProduct(_editProduct)
             .then(
-              (_) => ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text(
-                    'Product Saved.',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  backgroundColor: Colors.green,
-                ),
+              (_) => SnackBarWidget.showSnackBar(
+                context,
+                'Product Saved',
               ),
             );
       } catch (e) {}

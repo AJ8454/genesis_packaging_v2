@@ -23,8 +23,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-//Todo: when deleting setState not working..
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
@@ -37,8 +35,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          primarySwatch: Colors.teal,
+          scaffoldBackgroundColor: kBgColor,
           appBarTheme: const AppBarTheme(backgroundColor: kCyanColor),
-          fontFamily: 'RobotoSlab',
+          fontFamily: 'Metropolis_Regular',
         ),
         title: kApptitle,
         initialRoute: '/',

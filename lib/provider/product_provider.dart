@@ -40,7 +40,7 @@ class ProductProvider with ChangeNotifier {
       _items = loadedProducts;
       notifyListeners();
     } catch (error) {
-      throw error;
+     
     }
   }
 
@@ -79,7 +79,7 @@ class ProductProvider with ChangeNotifier {
       _items.add(newProduct);
       notifyListeners();
     } catch (error) {
-      throw error;
+     
     }
   }
 

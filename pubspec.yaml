@@ -36,9 +36,9 @@ flutter:
   #   - images/a_dot_ham.jpeg
   # example:
   fonts:
-    - family: RobotoSlab
+    - family: Metropolis_Regular
       fonts:
-        - asset: assets/fonts/RobotoSlab-Regular.ttf
+        - asset: assets/fonts/Metropolis-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
