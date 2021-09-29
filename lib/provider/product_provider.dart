@@ -12,6 +12,8 @@ class ProductProvider with ChangeNotifier {
     return [..._items];
   }
 
+
+
   Product findById(String? id) {
     return _items.firstWhere((prod) => prod.id! == id!);
   }
@@ -39,9 +41,7 @@ class ProductProvider with ChangeNotifier {
       });
       _items = loadedProducts;
       notifyListeners();
-    } catch (error) {
-     
-    }
+    } catch (error) {}
   }
 
   Future<void> addProduct(Product product) async {
@@ -78,9 +78,7 @@ class ProductProvider with ChangeNotifier {
       );
       _items.add(newProduct);
       notifyListeners();
-    } catch (error) {
-     
-    }
+    } catch (error) {}
   }
 
   Future<void> updateProduct(String id, Product newProduct) async {
@@ -103,8 +101,7 @@ class ProductProvider with ChangeNotifier {
           }));
       _items[productIndex] = newProduct;
       notifyListeners();
-    } else {
-    }
+    } else {}
   }
 
   Future<void> deleteProduct(String id) async {

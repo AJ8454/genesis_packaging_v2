@@ -14,16 +14,15 @@ class ProductScreen extends StatefulWidget {
   State<ProductScreen> createState() => _ProductScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
-  late List<Product> _product = [];
-  late List<Product> _productForDisplay = [];
+bool? isLoading = true;
+List<Product> _displayItemList = [];
+List<Product> _product = [];
 
+class _ProductScreenState extends State<ProductScreen> {
   Future<void> _refreshProducts(BuildContext context) async {
     try {
-      final provider = Provider.of<ProductProvider>(context, listen: false);
-      provider.fetchAndSetProducts();
-      _product = provider.items;
-      _productForDisplay = provider.items;
+      await Provider.of<ProductProvider>(context, listen: false)
+          .fetchAndSetProducts();
     } catch (error) {
       SnackBarWidget.showSnackBar(
         context,
@@ -34,12 +33,13 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   void initState() {
-    super.initState();
     _refreshProducts(context);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    //final provider = Provider.of<ProductProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -47,23 +47,31 @@ class _ProductScreenState extends State<ProductScreen> {
           style: kAppbarTextStyle,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-            itemCount: _productForDisplay.length + 1,
-            itemBuilder: (context, index) {
-              if (_productForDisplay.isEmpty) {
-                Future.delayed(const Duration(seconds: 3))
-                    .then((_) => setState(() {
-                          _refreshProducts(context);
-                        }));
-                return const Center(
-                  child: CircularProgressIndicator(),
+      body: isLoading!
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Consumer<ProductProvider>(builder: (ctx, productData, _) {
+              if (productData.items.isEmpty) {
+                return const Center(child: EmptyDataWidget());
+              } else {
+                setState(() {
+                  _displayItemList = productData.items;
+                  _product = productData.items;
+                  isLoading = false;
+                });
+                return Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: ListView.builder(
+                      itemCount: _displayItemList.length + 1,
+                      itemBuilder: (_, index) {
+                        return index == 0
+                            ? _searchBar()
+                            : _productItem(index - 1);
+                      }),
                 );
               }
-              return index == 0 ? _searchBar() : _productItem(index - 1);
             }),
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFFFAB10C),
         child: SvgPicture.asset(
@@ -94,7 +102,7 @@ class _ProductScreenState extends State<ProductScreen> {
         onChanged: (text) {
           text = text.toLowerCase();
           setState(() {
-            _productForDisplay = _product.where((prod) {
+            _displayItemList = _product.where((prod) {
               var proTitle = prod.title!.toLowerCase();
               return proTitle.contains(text);
             }).toList();
@@ -110,11 +118,11 @@ class _ProductScreenState extends State<ProductScreen> {
       child: Card(
         child: ListTile(
           leading: SvgPicture.asset(
-            _productForDisplay[index].imageUrl,
+            _displayItemList[index].imageUrl,
             height: 30,
           ),
           title: Text(
-            _productForDisplay[index].title!,
+            _displayItemList[index].title!,
             style: const TextStyle(
               fontSize: 15,
               color: kCyanColor,
@@ -122,9 +130,9 @@ class _ProductScreenState extends State<ProductScreen> {
             ),
           ),
           subtitle: Text(
-            _productForDisplay[index].type!,
+            _displayItemList[index].type!,
             style: const TextStyle(
-              fontSize: 9,
+              fontSize: 12,
               color: kGreyColor,
               fontWeight: FontWeight.bold,
             ),
@@ -138,20 +146,20 @@ class _ProductScreenState extends State<ProductScreen> {
                   size: 22.0,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/stockEditScreen',
-                      arguments: _productForDisplay[index].id);
+                  Navigator.of(context).pushNamed('/EditProductScreen',
+                      arguments: _displayItemList[index].id);
                 },
                 color: Colors.brown,
               ),
               IconButton(
                 icon: const Icon(
                   FontAwesomeIcons.trash,
-                  size: 22.0,
+                  size: 20.0,
                 ),
                 onPressed: () async {
                   try {
                     await Provider.of<ProductProvider>(context, listen: false)
-                        .deleteProduct(_productForDisplay[index].id!);
+                        .deleteProduct(_displayItemList[index].id!);
                   } catch (error) {
                     SnackBarWidget.showSnackBar(
                       context,
