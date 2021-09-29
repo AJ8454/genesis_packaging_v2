@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:genesis_packaging_v2/provider/email_sign_in_provider.dart';
 import 'package:genesis_packaging_v2/utility/constant.dart';
 import 'package:genesis_packaging_v2/widgets/authentication_widgets/signin_signup_label.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'signup_form.dart';
 
-class SignUpPage extends StatefulWidget {
+class SignUpPage extends StatelessWidget {
   const SignUpPage({Key? key}) : super(key: key);
-
-  @override
-  State<SignUpPage> createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: SingleChildScrollView(
@@ -36,13 +31,18 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: kLabelTextStyle2,
                   ),
                   const Spacer(),
-                  SignUpForm(),
+                  const SignUpForm(),
                   const Spacer(),
                   SignInAndSignUpLabel(
-                    text1: 'I\'m already a member, ',
-                    text2: 'Sign In',
-                    onClicked: () => Navigator.of(context).pop(),
-                  ),
+                      text1: 'I\'m already a member, ',
+                      text2: 'Sign In',
+                      onClicked: () {
+                        final provider = Provider.of<EmailSignInProvider>(
+                            context,
+                            listen: false);
+                        provider.isLogin = !provider.isLogin;
+                        Navigator.of(context).pop();
+                      }),
                   const Spacer(),
                 ],
               ),

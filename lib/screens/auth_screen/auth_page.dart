@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:genesis_packaging_v2/provider/email_sign_in_provider.dart';
 import 'package:genesis_packaging_v2/utility/constant.dart';
 import 'package:genesis_packaging_v2/widgets/authentication_widgets/signin_signup_label.dart';
+import 'package:provider/provider.dart';
 import 'login_form.dart';
 import 'signup_page.dart';
 
@@ -36,17 +38,22 @@ class _AuthPageState extends State<AuthPage> {
                     style: kLabelTextStyle2,
                   ),
                   const Spacer(),
-                  LoginForm(),
+                  const LoginForm(),
                   const Spacer(),
                   SignInAndSignUpLabel(
-                    text1: 'I\'m a new user, ',
-                    text2: 'Sign Up',
-                    onClicked: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const SignUpPage(),
-                      ),
-                    ),
-                  ),
+                      text1: 'I\'m a new user, ',
+                      text2: 'Sign Up',
+                      onClicked: () {
+                        final provider = Provider.of<EmailSignInProvider>(
+                            context,
+                            listen: false);
+                        provider.isLogin = !provider.isLogin;
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SignUpPage(),
+                          ),
+                        );
+                      }),
                   const Spacer(),
                 ],
               ),

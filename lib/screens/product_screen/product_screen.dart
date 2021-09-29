@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:genesis_packaging_v2/models/product.dart';
 import 'package:genesis_packaging_v2/provider/product_provider.dart';
 import 'package:genesis_packaging_v2/utility/constant.dart';
-import 'package:genesis_packaging_v2/widgets/product_page_widgets/product_item_widgets.dart';
 import 'package:genesis_packaging_v2/widgets/snack_bar.dart';
 import 'package:provider/provider.dart';
 

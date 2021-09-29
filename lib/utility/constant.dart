@@ -9,6 +9,7 @@ const kBgColor = Color(0xFFF4F4F4);
 const kGreyColor = Color(0xFFA7AEB6);
 const kCyanColor = Color(0xFF008175);
 
+
 const kAppbarTextStyle = TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,

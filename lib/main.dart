@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'initial_page.dart';
+import 'provider/email_sign_in_provider.dart';
 import 'provider/google_sign_in_provider.dart';
 import 'provider/product_provider.dart';
 import 'screens/auth_screen/auth_page.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (ctx) => GoogleSignInProvider()),
+        ChangeNotifierProvider(create: (ctx) => EmailSignInProvider()),
         ChangeNotifierProvider(create: (ctx) => ProductProvider()),
       ],
       child: MaterialApp(
