@@ -18,6 +18,7 @@ dependencies:
   font_awesome_flutter: ^9.1.0
   google_sign_in: ^5.1.1
   http: ^0.13.3
+  image_picker: ^0.8.4+2
   intl: ^0.17.0
   provider: ^6.0.1
 
@@ -36,9 +37,9 @@ flutter:
   #   - images/a_dot_ham.jpeg
   # example:
   fonts:
-    - family: Metropolis_Regular
+    - family: OnePlus-Regular
       fonts:
-        - asset: assets/fonts/Metropolis-Regular.ttf
+        - asset: assets/fonts/OnePlus-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

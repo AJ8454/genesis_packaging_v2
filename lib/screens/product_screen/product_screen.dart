@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:genesis_packaging_v2/provider/product_provider.dart';
 import 'package:genesis_packaging_v2/utility/constant.dart';
 import 'package:genesis_packaging_v2/widgets/app_drawer.dart';
+import 'package:genesis_packaging_v2/widgets/product_page_widgets/product_item_widgets.dart';
 import 'package:genesis_packaging_v2/widgets/snack_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -126,108 +127,11 @@ class _ProductScreenState extends State<ProductScreen> {
                   Expanded(
                     child: ListView.builder(
                       itemCount: _searchResultList.length,
-                      itemBuilder: (context, index) => Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 5.0),
-                        color: Colors.white,
-                        padding: const EdgeInsets.all(8.0),
-                        height: 100,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.grey[400],
-                              radius: 25,
-                              child: SvgPicture.asset(
-                                _searchResultList[index].imageUrl,
-                                fit: BoxFit.contain,
-                                height: 30,
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 70,
-                                  child: Text(
-                                    _searchResultList[index].title!,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: kCyanColor,
-                                      fontWeight: FontWeight.w900,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  'Type : ${_searchResultList[index].type!}',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: kGreyColor,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  'Color : ${_searchResultList[index].color!}',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: kGreyColor,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  'BalQty : ${_searchResultList[index].quantity!.toString()}',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: kGreyColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.edit,
-                                    size: 22.0,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).pushNamed(
-                                        '/EditProductScreen',
-                                        arguments: _searchResultList[index].id);
-                                  },
-                                  color: Colors.brown,
-                                ),
-                                IconButton(
-                                  icon: const Icon(
-                                    FontAwesomeIcons.trash,
-                                    size: 20.0,
-                                  ),
-                                  onPressed: () async {
-                                    try {
-                                      await Provider.of<ProductProvider>(
-                                              context,
-                                              listen: false)
-                                          .deleteProduct(
-                                              _searchResultList[index].id!);
-                                      setState(() {
-                                        resultLoaded = _refreshProducts();
-                                      });
-                                    } catch (error) {
-                                      SnackBarWidget.showSnackBar(
-                                        context,
-                                        'Deleting Failed',
-                                      );
-                                    }
-                                  },
-                                  color: Theme.of(context).errorColor,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                      itemBuilder: (context, index) => ProductItem(
+                        id: _searchResultList[index].id,
+                        imageUrl: _searchResultList[index].imageUrl,
+                        title: _searchResultList[index].title,
+                        balQty: _searchResultList[index].quantity.toString(),
                       ),
                     ),
                   ),

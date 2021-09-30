@@ -10,74 +10,115 @@ class ProductItem extends StatelessWidget {
   final String? id;
   final String? title;
   final String? imageUrl;
-  final String? type;
+  final String? balQty;
   const ProductItem({
     Key? key,
     this.id,
     this.title,
     this.imageUrl,
-    this.type,
+    this.balQty,
   }) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: SvgPicture.asset(
-        imageUrl!,
-        height: 20,
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
       ),
-      title: Text(
-        title!,
-        style: const TextStyle(
-          fontSize: 15,
-          color: kCyanColor,
-          fontWeight: FontWeight.w900,
-        ),
-      ),
-      subtitle: Text(
-        type!,
-        style: const TextStyle(
-          fontSize: 9,
-          color: kGreyColor,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
+      child: Row(
         children: [
-          IconButton(
-            icon: const Icon(
-              Icons.edit,
-              size: 22.0,
+          Expanded(
+            child: Container(
+              height: 70,
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                imageUrl!,
+              ),
             ),
-            onPressed: () {
-              Navigator.of(context)
-                  .pushNamed('/stockEditScreen', arguments: id);
-            },
-            color: Colors.brown,
           ),
-          IconButton(
-            icon: const Icon(
-              FontAwesomeIcons.trash,
-              size: 22.0,
+          Expanded(
+            flex: 3,
+            child: Column(
+              children: [
+                Container(
+                  height: 50,
+                  color: kCyanColor.withOpacity(0.7),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SizedBox(),
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          title!,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'BalQty : ${balQty!}',
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 50,
+                  color: const Color(0xFFDA4453).withOpacity(0.7),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Spacer(),
+                      IconButton(
+                        icon: SvgPicture.asset('assets/icons/editIcon.svg'),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed('/EditProductScreen', arguments: id);
+                        },
+                        color: Colors.brown,
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.delete,
+                          size: 25,
+                        ),
+                        onPressed: () async {
+                          try {
+                            await Provider.of<ProductProvider>(context,
+                                    listen: false)
+                                .deleteProduct(id!);
+                            SnackBarWidget.showSnackBar(
+                              context,
+                              'Product Deleted',
+                            );
+                          } catch (error) {
+                            SnackBarWidget.showSnackBar(
+                              context,
+                              'Deleting Failed',
+                            );
+                          }
+                        },
+                        color: Colors.black,
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            onPressed: () async {
-              try {
-                await Provider.of<ProductProvider>(context, listen: false)
-                    .deleteProduct(id!);
-              } catch (error) {
-                SnackBarWidget.showSnackBar(
-                  context,
-                  'Deleting Failed',
-                );
-              }
-            },
-            color: Theme.of(context).errorColor,
-          ),
+          )
         ],
       ),
     );
   }
-
-  
 }

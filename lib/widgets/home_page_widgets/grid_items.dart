@@ -28,14 +28,14 @@ class GridItems extends StatelessWidget {
             SvgPicture.asset(
               iconPath!,
               height: 50,
+              color: Colors.white,
             ),
             const SizedBox(height: 10),
             Text(
               title!,
               style: const TextStyle(
                 color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: 14,
               ),
             ),
           ],

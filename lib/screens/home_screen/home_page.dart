@@ -21,8 +21,23 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         children: [
           GridItems(
-            iconPath: 'assets/icons/open-box.svg',
-            title: 'Products',
+            iconPath: 'assets/icons/purchaseEntry.svg',
+            title: 'Purchase Entry',
+            onClicked: () => Navigator.of(context).pushNamed('/ProductScreen'),
+          ),
+          GridItems(
+            iconPath: 'assets/icons/salesEntry.svg',
+            title: 'Sales Entry',
+            onClicked: () => Navigator.of(context).pushNamed('/ProductScreen'),
+          ),
+          GridItems(
+            iconPath: 'assets/icons/productList.svg',
+            title: 'Product List',
+            onClicked: () => Navigator.of(context).pushNamed('/ProductScreen'),
+          ),
+          GridItems(
+            iconPath: 'assets/icons/productList.svg',
+            title: 'Closing Stock',
             onClicked: () => Navigator.of(context).pushNamed('/ProductScreen'),
           ),
           GridItems(

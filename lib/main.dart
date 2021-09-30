@@ -19,8 +19,6 @@ import 'utility/constant.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // await EmployeeSalaryReportApi.init();
-  // await UserSimplePreferences.init();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -43,9 +41,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.teal,
-          scaffoldBackgroundColor: kBgColor,
           appBarTheme: const AppBarTheme(backgroundColor: kCyanColor),
-          fontFamily: 'Metropolis_Regular',
+          fontFamily: 'OnePlus-Regular',
         ),
         title: kApptitle,
         initialRoute: '/',
