@@ -102,17 +102,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
       await Provider.of<ProductProvider>(context, listen: false)
           .updateProduct(_editProduct.id!, _editProduct)
           .then(
-            (_) => ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: const Text(
-                  'Product Updated.',
-                  style: TextStyle(fontSize: 20),
-                ),
-                backgroundColor: Colors.orange[400],
-              ),
+            (_) => SnackBarWidget.showSnackBar(
+              context,
+              'Product updated',
             ),
           );
-      Navigator.of(context).pop();
+      Navigator.of(context).popUntil((route) => route.isFirst);
     } else {
       try {
         await Provider.of<ProductProvider>(context, listen: false)
@@ -129,7 +124,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     setState(() {
       _isLoading = false;
     });
-    Navigator.of(context).pop();
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
   @override
