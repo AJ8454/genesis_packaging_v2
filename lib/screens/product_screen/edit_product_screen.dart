@@ -107,18 +107,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
               'Product updated',
             ),
           );
-      Navigator.of(context).popUntil((route) => route.isFirst);
     } else {
-      try {
-        await Provider.of<ProductProvider>(context, listen: false)
-            .addProduct(_editProduct)
-            .then(
-              (_) => SnackBarWidget.showSnackBar(
-                context,
-                'Product Saved',
-              ),
-            );
-      } catch (e) {}
+      await Provider.of<ProductProvider>(context, listen: false)
+          .addProduct(_editProduct)
+          .then(
+            (_) => SnackBarWidget.showSnackBar(
+              context,
+              'Product Saved',
+            ),
+          );
     }
 
     setState(() {

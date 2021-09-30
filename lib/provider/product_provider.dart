@@ -39,7 +39,9 @@ class ProductProvider with ChangeNotifier {
       });
       _items = loadedProducts;
       notifyListeners();
-    } catch (error) {}
+    } catch (error) {
+      rethrow;
+    }
   }
 
   Future<void> addProduct(Product product) async {
@@ -76,7 +78,9 @@ class ProductProvider with ChangeNotifier {
       );
       _items.add(newProduct);
       notifyListeners();
-    } catch (error) {}
+    } catch (error) {
+      rethrow;
+    }
   }
 
   Future<void> updateProduct(String id, Product newProduct) async {
@@ -93,13 +97,12 @@ class ProductProvider with ChangeNotifier {
             'dateTime': newProduct.dateTime,
             'quantity': newProduct.quantity,
             'gstNo': newProduct.gstNo,
-            // 'imageUrl': '',
             'rate': newProduct.rate,
             'supplier': newProduct.supplier,
           }));
       _items[productIndex] = newProduct;
       notifyListeners();
-    } else {}
+    }
   }
 
   Future<void> deleteProduct(String id) async {

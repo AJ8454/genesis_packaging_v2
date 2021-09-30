@@ -26,6 +26,6 @@ class Product with ChangeNotifier {
     required this.gstNo,
     this.imageUrl =
         'assets/icons/landscape-image.svg',
-    // required this.imageUrl,
+    
   });
 }
