@@ -40,7 +40,12 @@ class _ProductItemState extends State<ProductItem> {
                   ? Image.network(
                       widget.imageUrl!,
                     )
-                  : SvgPicture.asset('assets/icons/landscape-image.svg'),
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SvgPicture.asset(
+                        'assets/icons/landscape-image.svg',
+                      ),
+                    ),
             ),
           ),
           Expanded(

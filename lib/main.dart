@@ -10,6 +10,7 @@ import 'provider/employee_provider.dart';
 import 'provider/google_sign_in_provider.dart';
 import 'provider/product_provider.dart';
 import 'provider/purchase_entry_provider.dart';
+import 'provider/sales_entry_provider.dart';
 import 'provider/vendor_provider.dart';
 import 'screens/auth_screen/auth_page.dart';
 import 'screens/customer_detail_screen/customer_detail_screen.dart';
@@ -20,6 +21,7 @@ import 'screens/orders_screen/order_screen.dart';
 import 'screens/product_screen/edit_product_screen.dart';
 import 'screens/product_screen/product_screen.dart';
 import 'screens/purchase_entry_screen/purchase_entry_screen.dart';
+import 'screens/sales_entry_screen/sales_entry_screen.dart';
 import 'screens/vendor_detail_screen/edit_vendor_screen.dart';
 import 'screens/vendor_detail_screen/vendor_detail_screen.dart';
 import 'utility/constant.dart';
@@ -47,6 +49,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => VendorProvider()),
         ChangeNotifierProvider(create: (ctx) => CustomerProvider()),
         ChangeNotifierProvider(create: (ctx) => PurchaseEntryProvider()),
+        ChangeNotifierProvider(create: (ctx) => SalesEntryProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -70,6 +73,7 @@ class MyApp extends StatelessWidget {
           '/CustomerDetailScreen': (ctx) => const CustomerDetailScreen(),
           '/EditCustomerScreen': (ctx) => const EditCustomerScreen(),
           '/PurchaseEntryScreen': (ctx) => const PurchaseEntryScreen(),
+          '/SalesEntryScreen': (ctx) => const SalesEntryScreen(),
         },
       ),
     );

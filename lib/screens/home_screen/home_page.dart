@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:genesis_packaging_v2/provider/customer_provider.dart';
+import 'package:genesis_packaging_v2/provider/product_provider.dart';
+import 'package:genesis_packaging_v2/provider/vendor_provider.dart';
 import 'package:genesis_packaging_v2/utility/constant.dart';
 import 'package:genesis_packaging_v2/widgets/app_drawer.dart';
 import 'package:genesis_packaging_v2/widgets/home_page_widgets/grid_items.dart';
+import 'package:genesis_packaging_v2/widgets/snack_bar.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void didChangeDependencies() {
+    Provider.of<ProductProvider>(context, listen: false).fetchAndSetProducts();
+    Provider.of<VendorProvider>(context, listen: false).fetchAndSetVendor();
+    Provider.of<CustomerProvider>(context, listen: false).fetchAndSetCustomer();
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +47,8 @@ class HomePage extends StatelessWidget {
           GridItems(
             iconPath: 'assets/icons/salesEntry.svg',
             title: 'Sales Entry',
-            onClicked:
-                () {}, //=> Navigator.of(context).pushNamed('/ProductScreen'),
+            onClicked: () =>
+                Navigator.of(context).pushNamed('/SalesEntryScreen'),
           ),
           GridItems(
             iconPath: 'assets/icons/productList.svg',
@@ -38,10 +56,12 @@ class HomePage extends StatelessWidget {
             onClicked: () => Navigator.of(context).pushNamed('/ProductScreen'),
           ),
           GridItems(
-            iconPath: 'assets/icons/productList.svg',
+            iconPath: 'assets/icons/closingStock.svg',
             title: 'Closing Stock',
-            onClicked:
-                () {}, //=> Navigator.of(context).pushNamed('/ProductScreen'),
+            onClicked: () => SnackBarWidget.showSnackBar(
+              context,
+              'Coming soon',
+            ),
           ),
           GridItems(
             iconPath: 'assets/icons/vendor.svg',
@@ -56,20 +76,18 @@ class HomePage extends StatelessWidget {
                 Navigator.of(context).pushNamed('/CustomerDetailScreen'),
           ),
           GridItems(
-            iconPath: 'assets/icons/orders.svg',
-            title: 'Orders',
-            onClicked: () => Navigator.of(context).pushNamed('/OrderScreen'),
-          ),
-          GridItems(
             iconPath: 'assets/icons/person.svg',
             title: 'Employees',
             onClicked: () => Navigator.of(context).pushNamed('/EmployeeScreen'),
           ),
-          // GridItems(
-          //   iconPath: 'assets/icons/attandancePerson.svg',
-          //   title: 'Attendance',
-          //   onClicked: () => Navigator.of(context).pushNamed('/EmployeeScreen'),
-          // ),
+          GridItems(
+            iconPath: 'assets/icons/attendance.svg',
+            title: 'Attendance',
+            onClicked: () => SnackBarWidget.showSnackBar(
+              context,
+              'Coming soon',
+            ),
+          ),
         ],
       ),
     );
