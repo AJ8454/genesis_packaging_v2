@@ -87,12 +87,12 @@ class VendorProvider with ChangeNotifier {
     }
   }
 
-  Future<void> deleteVendor(String id) async {
+  Future<void> deleteVendor(String? id) async {
     final url =
         'https://genesispackaging-9905b-default-rtdb.firebaseio.com/vendor/$id.json';
     final exsistingVendorIndex = _items.indexWhere((prod) => prod.id == id);
     dynamic exsistingVendor = _items[exsistingVendorIndex];
-    _items.removeAt(exsistingVendor);
+    _items.removeAt(exsistingVendorIndex);
     notifyListeners();
 
     final response = await http.delete(Uri.parse(url));

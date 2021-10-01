@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:genesis_packaging_v2/provider/vendor_provider.dart';
+import 'package:genesis_packaging_v2/provider/customer_provider.dart';
 import 'package:genesis_packaging_v2/utility/constant.dart';
 import 'package:genesis_packaging_v2/widgets/app_drawer.dart';
+import 'package:genesis_packaging_v2/widgets/customer_page_widget/customer_item_widget.dart';
 import 'package:genesis_packaging_v2/widgets/snack_bar.dart';
 import 'package:genesis_packaging_v2/widgets/vendor_page_widgets/vendor_item_widget.dart';
 import 'package:provider/provider.dart';
 
-class VendorDetailScreen extends StatefulWidget {
-  const VendorDetailScreen({Key? key}) : super(key: key);
+class CustomerDetailScreen extends StatefulWidget {
+  const CustomerDetailScreen({Key? key}) : super(key: key);
 
   @override
-  State<VendorDetailScreen> createState() => _VendorDetailScreenState();
+  State<CustomerDetailScreen> createState() => _CustomerDetailScreenState();
 }
 
-class _VendorDetailScreenState extends State<VendorDetailScreen> {
+class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
   final TextEditingController _searchController = TextEditingController();
   List _allResult = [];
   List _searchResultList = [];
   Future? resultLoaded;
   bool? isLoading = true;
   List? data;
-  _refreshVendor() async {
+  _refreshCustomer() async {
     try {
-      await Provider.of<VendorProvider>(context, listen: false)
-          .fetchAndSetVendor()
+      await Provider.of<CustomerProvider>(context, listen: false)
+          .fetchAndSetCustomer()
           .then((_) {
-        data = Provider.of<VendorProvider>(context, listen: false).items;
+        data = Provider.of<CustomerProvider>(context, listen: false).items;
         setState(() {
           _allResult = data!;
           isLoading = false;
@@ -39,7 +40,7 @@ class _VendorDetailScreenState extends State<VendorDetailScreen> {
       });
       SnackBarWidget.showSnackBar(
         context,
-        'No Vendor Added yet',
+        'No Customer Added yet',
       );
     }
   }
@@ -47,7 +48,7 @@ class _VendorDetailScreenState extends State<VendorDetailScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    resultLoaded = _refreshVendor();
+    resultLoaded = _refreshCustomer();
   }
 
   @override
@@ -87,13 +88,13 @@ class _VendorDetailScreenState extends State<VendorDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Vendor Details',
+          'Customer Details',
           style: kAppbarTextStyle,
         ),
         actions: [
           IconButton(
             onPressed: () =>
-                Navigator.of(context).pushNamed('/EditVendorScreen'),
+                Navigator.of(context).pushNamed('/EditCustomerScreen'),
             icon: const Icon(Icons.add),
           )
         ],
@@ -125,14 +126,15 @@ class _VendorDetailScreenState extends State<VendorDetailScreen> {
                   Expanded(
                     child: ListView.builder(
                       itemCount: _searchResultList.length,
-                      itemBuilder: (context, index) => VendorItem(
+                      itemBuilder: (context, index) => CustomerItem(
                         id: _searchResultList[index].id,
                         companyName: _searchResultList[index].companyName,
-                        address: _searchResultList[index].vendorAddress,
+                        address: _searchResultList[index].customerAddress,
                         name: _searchResultList[index].name,
-                        vendorMobileNo:
-                            _searchResultList[index].vendorMobileNum.toString(),
-                        vendorEmail: _searchResultList[index].vendorEmail,
+                        customerMobileNo: _searchResultList[index]
+                            .customerMobileNum
+                            .toString(),
+                        customerEmail: _searchResultList[index].customerEmail,
                       ),
                     ),
                   ),

@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:genesis_packaging_v2/provider/customer_provider.dart';
 import 'package:genesis_packaging_v2/provider/vendor_provider.dart';
 import 'package:genesis_packaging_v2/utility/constant.dart';
 import 'package:provider/provider.dart';
 
 import '../snack_bar.dart';
 
-class VendorItem extends StatefulWidget {
+class CustomerItem extends StatefulWidget {
   final String? id;
   final String? name;
   final String? companyName;
   final String? address;
-  final String? vendorMobileNo;
-  final String? vendorEmail;
-  const VendorItem({
+  final String? customerMobileNo;
+  final String? customerEmail;
+  const CustomerItem({
     Key? key,
     this.id,
     this.name,
     this.companyName,
     this.address,
-    this.vendorMobileNo,
-    this.vendorEmail,
+    this.customerMobileNo,
+    this.customerEmail,
   }) : super(key: key);
   @override
-  _VendorItemState createState() => _VendorItemState();
+  _CustomerItemState createState() => _CustomerItemState();
 }
 
-class _VendorItemState extends State<VendorItem> {
+class _CustomerItemState extends State<CustomerItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,11 +42,11 @@ class _VendorItemState extends State<VendorItem> {
           Expanded(
             child: Column(
               children: [
-                _vendorInfo(Icons.person, widget.name!),
-                _vendorInfo(Icons.location_city, widget.companyName!),
-                _vendorInfo(Icons.location_on, widget.address!),
-                _vendorInfo(Icons.phone, widget.vendorMobileNo!),
-                _vendorInfo(Icons.local_post_office, widget.vendorEmail!),
+                _customerInfo(Icons.person, widget.name!),
+                _customerInfo(Icons.location_city, widget.companyName!),
+                _customerInfo(Icons.location_on, widget.address!),
+                _customerInfo(Icons.phone, widget.customerMobileNo!),
+                _customerInfo(Icons.local_post_office, widget.customerEmail!),
               ],
             ),
           ),
@@ -57,7 +58,7 @@ class _VendorItemState extends State<VendorItem> {
                   icon: SvgPicture.asset('assets/icons/editIcon.svg'),
                   onPressed: () {
                     Navigator.of(context)
-                        .pushNamed('/EditVendorScreen', arguments: widget.id);
+                        .pushNamed('/EditCustomerScreen', arguments: widget.id);
                   },
                   color: Colors.brown,
                 ),
@@ -69,13 +70,13 @@ class _VendorItemState extends State<VendorItem> {
                   ),
                   onPressed: () async {
                     try {
-                      await Provider.of<VendorProvider>(context, listen: false)
-                          .deleteVendor(widget.id!);
+                      await Provider.of<CustomerProvider>(context, listen: false)
+                          .deleteCustomer(widget.id!);
 
                       Navigator.of(context).popUntil((route) => route.isFirst);
                       SnackBarWidget.showSnackBar(
                         context,
-                        'Vendor Deleted',
+                        'Customer Deleted',
                       );
                     } catch (error) {
                       SnackBarWidget.showSnackBar(
@@ -93,7 +94,7 @@ class _VendorItemState extends State<VendorItem> {
     );
   }
 
-  Widget _vendorInfo(
+  Widget _customerInfo(
     IconData? icon,
     String? text,
   ) {

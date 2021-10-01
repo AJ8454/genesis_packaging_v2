@@ -4,12 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'initial_page.dart';
+import 'provider/customer_provider.dart';
 import 'provider/email_sign_in_provider.dart';
 import 'provider/employee_provider.dart';
 import 'provider/google_sign_in_provider.dart';
 import 'provider/product_provider.dart';
 import 'provider/vendor_provider.dart';
 import 'screens/auth_screen/auth_page.dart';
+import 'screens/customer_detail_screen/customer_detail_screen.dart';
 import 'screens/employees_screen/edit_employee_screen.dart';
 import 'screens/employees_screen/employee_screen.dart';
 import 'screens/orders_screen/order_screen.dart';
@@ -40,6 +42,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => ProductProvider()),
         ChangeNotifierProvider(create: (ctx) => EmployeeProvider()),
         ChangeNotifierProvider(create: (ctx) => VendorProvider()),
+        ChangeNotifierProvider(create: (ctx) => CustomerProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -60,6 +63,7 @@ class MyApp extends StatelessWidget {
           '/OrderScreen': (ctx) => const OrderScreen(),
           '/VendorDetailScreen': (ctx) => const VendorDetailScreen(),
           '/EditVendorScreen': (ctx) => const EditVendorScreen(),
+          '/CustomerDetailScreen': (ctx) => const CustomerDetailScreen(),
         },
       ),
     );
