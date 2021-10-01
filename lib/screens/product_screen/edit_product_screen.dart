@@ -152,389 +152,385 @@ class _EditProductScreenState extends State<EditProductScreen> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        FocusScope(
-                          node: _node,
-                          child: Form(
-                            key: _form,
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                        child: Column(
-                                      children: [
-                                        TextFormField(
-                                          initialValue: _initValues['title'],
-                                          decoration: const InputDecoration(
-                                              labelText: 'Title'),
-                                          textInputAction: TextInputAction.next,
-                                          onEditingComplete: _node.nextFocus,
-                                          onSaved: (value) {
-                                            _editProduct = Product(
-                                              title: value!,
-                                              id: _editProduct.id,
-                                              color: _editProduct.color,
-                                              dateTime: _editProduct.dateTime,
-                                              gstNo: _editProduct.gstNo,
-                                              imageUrl: _editProduct.imageUrl,
-                                              quantity: _editProduct.quantity,
-                                              rate: _editProduct.rate,
-                                              size: _editProduct.size,
-                                              supplier: _editProduct.supplier,
-                                              alertQty: _editProduct.alertQty,
-                                              type: _editProduct.type,
-                                            );
-                                          },
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Please enter a title.';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                        TextFormField(
-                                          initialValue: _initValues['size'],
-                                          decoration: const InputDecoration(
-                                              labelText: 'Size'),
-                                          textInputAction: TextInputAction.next,
-                                          onEditingComplete: _node.nextFocus,
-                                          keyboardType: TextInputType.number,
-                                          onSaved: (value) {
-                                            _editProduct = Product(
-                                              title: _editProduct.title,
-                                              id: _editProduct.id,
-                                              color: _editProduct.color,
-                                              dateTime: _editProduct.dateTime,
-                                              gstNo: _editProduct.gstNo,
-                                              imageUrl: _editProduct.imageUrl,
-                                              quantity: _editProduct.quantity,
-                                              rate: _editProduct.rate,
-                                              size: double.parse(value!),
-                                              supplier: _editProduct.supplier,
-                                              alertQty: _editProduct.alertQty,
-                                              type: _editProduct.type,
-                                            );
-                                          },
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Please enter the size.';
-                                            }
-                                            if (double.tryParse(value) ==
-                                                null) {
-                                              return 'Please enter a valid size.';
-                                            }
+          : ConstrainedBox(
+              constraints:
+                  BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    children: [
+                      FocusScope(
+                        node: _node,
+                        child: Form(
+                          key: _form,
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Column(
+                                    children: [
+                                      TextFormField(
+                                        initialValue: _initValues['title'],
+                                        decoration: const InputDecoration(
+                                            labelText: 'Title'),
+                                        textInputAction: TextInputAction.next,
+                                        onEditingComplete: _node.nextFocus,
+                                        onSaved: (value) {
+                                          _editProduct = Product(
+                                            title: value!,
+                                            id: _editProduct.id,
+                                            color: _editProduct.color,
+                                            dateTime: _editProduct.dateTime,
+                                            gstNo: _editProduct.gstNo,
+                                            imageUrl: _editProduct.imageUrl,
+                                            quantity: _editProduct.quantity,
+                                            rate: _editProduct.rate,
+                                            size: _editProduct.size,
+                                            supplier: _editProduct.supplier,
+                                            alertQty: _editProduct.alertQty,
+                                            type: _editProduct.type,
+                                          );
+                                        },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please enter a title.';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      TextFormField(
+                                        initialValue: _initValues['size'],
+                                        decoration: const InputDecoration(
+                                            labelText: 'Size'),
+                                        textInputAction: TextInputAction.next,
+                                        onEditingComplete: _node.nextFocus,
+                                        keyboardType: TextInputType.number,
+                                        onSaved: (value) {
+                                          _editProduct = Product(
+                                            title: _editProduct.title,
+                                            id: _editProduct.id,
+                                            color: _editProduct.color,
+                                            dateTime: _editProduct.dateTime,
+                                            gstNo: _editProduct.gstNo,
+                                            imageUrl: _editProduct.imageUrl,
+                                            quantity: _editProduct.quantity,
+                                            rate: _editProduct.rate,
+                                            size: double.parse(value!),
+                                            supplier: _editProduct.supplier,
+                                            alertQty: _editProduct.alertQty,
+                                            type: _editProduct.type,
+                                          );
+                                        },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please enter the size.';
+                                          }
+                                          if (double.tryParse(value) == null) {
+                                            return 'Please enter a valid size.';
+                                          }
 
-                                            return null;
-                                          },
-                                        ),
-                                      ],
-                                    )),
-                                    Expanded(
-                                      child: SizedBox(
-                                        height: 150,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () => _showPicker(context),
-                                              child: CircleAvatar(
-                                                radius: 55,
-                                                backgroundColor:
-                                                    Colors.grey[200],
-                                                child: _image != null
-                                                    ? ClipOval(
-                                                        child: Image.file(
-                                                          _image!,
-                                                          width: 100,
-                                                          height: 100,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      )
-                                                    : SizedBox(
+                                          return null;
+                                        },
+                                      ),
+                                    ],
+                                  )),
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 150,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () => _showPicker(context),
+                                            child: CircleAvatar(
+                                              radius: 55,
+                                              backgroundColor: Colors.grey[200],
+                                              child: _image != null
+                                                  ? ClipOval(
+                                                      child: Image.file(
+                                                        _image!,
                                                         width: 100,
                                                         height: 100,
-                                                        child: SvgPicture.asset(
-                                                          'assets/icons/camera.svg',
-                                                        ),
+                                                        fit: BoxFit.cover,
                                                       ),
-                                              ),
+                                                    )
+                                                  : SizedBox(
+                                                      width: 100,
+                                                      height: 100,
+                                                      child: SvgPicture.asset(
+                                                        'assets/icons/camera.svg',
+                                                      ),
+                                                    ),
                                             ),
-                                            const SizedBox(height: 10),
-                                            const Text(
-                                              'Product Image',
-                                              style: TextStyle(
-                                                color: kGreyColor,
-                                              ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          const Text(
+                                            'Product Image',
+                                            style: TextStyle(
+                                              color: kGreyColor,
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    )
-                                  ],
-                                ),
-                                TextFormField(
-                                  initialValue: _initValues['type'],
-                                  decoration:
-                                      const InputDecoration(labelText: 'Type'),
-                                  textInputAction: TextInputAction.next,
-                                  onEditingComplete: _node.nextFocus,
-                                  onSaved: (value) {
-                                    _editProduct = Product(
-                                      title: _editProduct.title,
-                                      id: _editProduct.id,
-                                      color: _editProduct.color,
-                                      dateTime: _editProduct.dateTime,
-                                      gstNo: _editProduct.gstNo,
-                                      imageUrl: _editProduct.imageUrl,
-                                      quantity: _editProduct.quantity,
-                                      rate: _editProduct.rate,
-                                      size: _editProduct.size,
-                                      alertQty: _editProduct.alertQty,
-                                      supplier: _editProduct.supplier,
-                                      type: value!,
-                                    );
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter a type.';
-                                    }
+                                    ),
+                                  )
+                                ],
+                              ),
+                              TextFormField(
+                                initialValue: _initValues['type'],
+                                decoration:
+                                    const InputDecoration(labelText: 'Type'),
+                                textInputAction: TextInputAction.next,
+                                onEditingComplete: _node.nextFocus,
+                                onSaved: (value) {
+                                  _editProduct = Product(
+                                    title: _editProduct.title,
+                                    id: _editProduct.id,
+                                    color: _editProduct.color,
+                                    dateTime: _editProduct.dateTime,
+                                    gstNo: _editProduct.gstNo,
+                                    imageUrl: _editProduct.imageUrl,
+                                    quantity: _editProduct.quantity,
+                                    rate: _editProduct.rate,
+                                    size: _editProduct.size,
+                                    alertQty: _editProduct.alertQty,
+                                    supplier: _editProduct.supplier,
+                                    type: value!,
+                                  );
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter a type.';
+                                  }
 
-                                    return null;
-                                  },
-                                ),
-                                TextFormField(
-                                  initialValue: _initValues['quantity'],
-                                  decoration: const InputDecoration(
-                                      labelText: 'Quantity'),
-                                  textInputAction: TextInputAction.next,
-                                  keyboardType: TextInputType.number,
-                                  onEditingComplete: _node.nextFocus,
-                                  onSaved: (value) {
-                                    _editProduct = Product(
-                                      title: _editProduct.title,
-                                      id: _editProduct.id,
-                                      color: _editProduct.color,
-                                      dateTime: _editProduct.dateTime,
-                                      gstNo: _editProduct.gstNo,
-                                      imageUrl: _editProduct.imageUrl,
-                                      quantity: int.parse(value!),
-                                      rate: _editProduct.rate,
-                                      size: _editProduct.size,
-                                      supplier: _editProduct.supplier,
-                                      alertQty: _editProduct.alertQty,
-                                      type: _editProduct.type,
-                                    );
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter a quantity.';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                TextFormField(
-                                  initialValue: _initValues['color'],
-                                  decoration:
-                                      const InputDecoration(labelText: 'Color'),
-                                  textInputAction: TextInputAction.next,
-                                  keyboardType: TextInputType.text,
-                                  onEditingComplete: _node.nextFocus,
-                                  onSaved: (value) {
-                                    _editProduct = Product(
-                                      title: _editProduct.title,
-                                      id: _editProduct.id,
-                                      color: value!,
-                                      dateTime: _editProduct.dateTime,
-                                      gstNo: _editProduct.gstNo,
-                                      imageUrl: _editProduct.imageUrl,
-                                      quantity: _editProduct.quantity,
-                                      rate: _editProduct.rate,
-                                      size: _editProduct.size,
-                                      supplier: _editProduct.supplier,
-                                      alertQty: _editProduct.alertQty,
-                                      type: _editProduct.type,
-                                    );
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter a color.';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                TextFormField(
-                                  initialValue: _initValues['supplier'],
-                                  decoration: const InputDecoration(
-                                      labelText: 'Supplier'),
-                                  textInputAction: TextInputAction.next,
-                                  onEditingComplete: _node.nextFocus,
-                                  onSaved: (value) {
-                                    _editProduct = Product(
-                                      title: _editProduct.title,
-                                      id: _editProduct.id,
-                                      color: _editProduct.color,
-                                      dateTime: _editProduct.dateTime,
-                                      gstNo: _editProduct.gstNo,
-                                      imageUrl: _editProduct.imageUrl,
-                                      quantity: _editProduct.quantity,
-                                      rate: _editProduct.rate,
-                                      size: _editProduct.size,
-                                      supplier: value!,
-                                      alertQty: _editProduct.alertQty,
-                                      type: _editProduct.type,
-                                    );
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter a supplier.';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(height: 32),
-                                Row(
-                                  children: [
-                                    const Text(
-                                      'Date :',
-                                      style: TextStyle(
-                                          fontSize: 15, color: Colors.black),
-                                    ),
-                                    const SizedBox(width: 32),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        elevation: 8,
-                                        primary: kCyanColor,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 24),
-                                      ),
-                                      child: Text(
-                                        getText(),
-                                        style: const TextStyle(
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      onPressed: () => pickDate(context),
-                                    )
-                                  ],
-                                ),
-                                TextFormField(
-                                  initialValue: _initValues['rate'],
-                                  decoration:
-                                      const InputDecoration(labelText: 'Rate'),
-                                  textInputAction: TextInputAction.next,
-                                  keyboardType: TextInputType.number,
-                                  onEditingComplete: _node.nextFocus,
-                                  onSaved: (value) {
-                                    _editProduct = Product(
-                                      title: _editProduct.title,
-                                      id: _editProduct.id,
-                                      color: _editProduct.color,
-                                      dateTime: _editProduct.dateTime,
-                                      gstNo: _editProduct.gstNo,
-                                      imageUrl: _editProduct.imageUrl,
-                                      quantity: _editProduct.quantity,
-                                      rate: double.parse(value!),
-                                      size: _editProduct.size,
-                                      supplier: _editProduct.supplier,
-                                      alertQty: _editProduct.alertQty,
-                                      type: _editProduct.type,
-                                    );
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter a rate.';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                TextFormField(
-                                  initialValue: _initValues['gstNo'],
-                                  textInputAction: TextInputAction.next,
-                                  onEditingComplete: _node.nextFocus,
-                                  decoration: const InputDecoration(
-                                      labelText: 'GST No'),
-                                  onSaved: (value) {
-                                    _editProduct = Product(
-                                      title: _editProduct.title,
-                                      id: _editProduct.id,
-                                      color: _editProduct.color,
-                                      dateTime: _editProduct.dateTime,
-                                      gstNo: value!,
-                                      imageUrl: _editProduct.imageUrl,
-                                      quantity: _editProduct.quantity,
-                                      rate: _editProduct.rate,
-                                      size: _editProduct.size,
-                                      supplier: _editProduct.supplier,
-                                      alertQty: _editProduct.alertQty,
-                                      type: _editProduct.type,
-                                    );
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter a GST no.';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                TextFormField(
-                                  initialValue: _initValues['alertQty'],
-                                  decoration: const InputDecoration(
-                                      labelText: 'Qty for Alert'),
-                                  onSaved: (value) {
-                                    _editProduct = Product(
-                                      title: _editProduct.title,
-                                      id: _editProduct.id,
-                                      color: _editProduct.color,
-                                      dateTime: _editProduct.dateTime,
-                                      gstNo: _editProduct.gstNo,
-                                      imageUrl: _editProduct.imageUrl,
-                                      quantity: _editProduct.quantity,
-                                      rate: _editProduct.rate,
-                                      size: _editProduct.size,
-                                      supplier: _editProduct.supplier,
-                                      alertQty: int.parse(value!),
-                                      type: _editProduct.type,
-                                    );
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter a GST no.';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(height: 25),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    minimumSize:
-                                        const Size(double.infinity, 40),
-                                    primary: kCyanColor,
-                                    elevation: 8,
-                                    shape: const StadiumBorder(),
-                                  ),
-                                  onPressed: () => _submitForm(),
-                                  child: const Text(
-                                    'save',
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                initialValue: _initValues['quantity'],
+                                decoration: const InputDecoration(
+                                    labelText: 'Quantity'),
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.number,
+                                onEditingComplete: _node.nextFocus,
+                                onSaved: (value) {
+                                  _editProduct = Product(
+                                    title: _editProduct.title,
+                                    id: _editProduct.id,
+                                    color: _editProduct.color,
+                                    dateTime: _editProduct.dateTime,
+                                    gstNo: _editProduct.gstNo,
+                                    imageUrl: _editProduct.imageUrl,
+                                    quantity: int.parse(value!),
+                                    rate: _editProduct.rate,
+                                    size: _editProduct.size,
+                                    supplier: _editProduct.supplier,
+                                    alertQty: _editProduct.alertQty,
+                                    type: _editProduct.type,
+                                  );
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter a quantity.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                initialValue: _initValues['color'],
+                                decoration:
+                                    const InputDecoration(labelText: 'Color'),
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.text,
+                                onEditingComplete: _node.nextFocus,
+                                onSaved: (value) {
+                                  _editProduct = Product(
+                                    title: _editProduct.title,
+                                    id: _editProduct.id,
+                                    color: value!,
+                                    dateTime: _editProduct.dateTime,
+                                    gstNo: _editProduct.gstNo,
+                                    imageUrl: _editProduct.imageUrl,
+                                    quantity: _editProduct.quantity,
+                                    rate: _editProduct.rate,
+                                    size: _editProduct.size,
+                                    supplier: _editProduct.supplier,
+                                    alertQty: _editProduct.alertQty,
+                                    type: _editProduct.type,
+                                  );
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter a color.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                initialValue: _initValues['supplier'],
+                                decoration: const InputDecoration(
+                                    labelText: 'Supplier'),
+                                textInputAction: TextInputAction.next,
+                                onEditingComplete: _node.nextFocus,
+                                onSaved: (value) {
+                                  _editProduct = Product(
+                                    title: _editProduct.title,
+                                    id: _editProduct.id,
+                                    color: _editProduct.color,
+                                    dateTime: _editProduct.dateTime,
+                                    gstNo: _editProduct.gstNo,
+                                    imageUrl: _editProduct.imageUrl,
+                                    quantity: _editProduct.quantity,
+                                    rate: _editProduct.rate,
+                                    size: _editProduct.size,
+                                    supplier: value!,
+                                    alertQty: _editProduct.alertQty,
+                                    type: _editProduct.type,
+                                  );
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter a supplier.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 32),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Date :',
                                     style: TextStyle(
-                                      fontSize: 20,
+                                        fontSize: 15, color: Colors.black),
+                                  ),
+                                  const SizedBox(width: 32),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      elevation: 8,
+                                      primary: kCyanColor,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 24),
                                     ),
+                                    child: Text(
+                                      getText(),
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    onPressed: () => pickDate(context),
+                                  )
+                                ],
+                              ),
+                              TextFormField(
+                                initialValue: _initValues['rate'],
+                                decoration:
+                                    const InputDecoration(labelText: 'Rate'),
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.number,
+                                onEditingComplete: _node.nextFocus,
+                                onSaved: (value) {
+                                  _editProduct = Product(
+                                    title: _editProduct.title,
+                                    id: _editProduct.id,
+                                    color: _editProduct.color,
+                                    dateTime: _editProduct.dateTime,
+                                    gstNo: _editProduct.gstNo,
+                                    imageUrl: _editProduct.imageUrl,
+                                    quantity: _editProduct.quantity,
+                                    rate: double.parse(value!),
+                                    size: _editProduct.size,
+                                    supplier: _editProduct.supplier,
+                                    alertQty: _editProduct.alertQty,
+                                    type: _editProduct.type,
+                                  );
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter a rate.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                initialValue: _initValues['gstNo'],
+                                textInputAction: TextInputAction.next,
+                                onEditingComplete: _node.nextFocus,
+                                decoration:
+                                    const InputDecoration(labelText: 'GST No'),
+                                onSaved: (value) {
+                                  _editProduct = Product(
+                                    title: _editProduct.title,
+                                    id: _editProduct.id,
+                                    color: _editProduct.color,
+                                    dateTime: _editProduct.dateTime,
+                                    gstNo: value!,
+                                    imageUrl: _editProduct.imageUrl,
+                                    quantity: _editProduct.quantity,
+                                    rate: _editProduct.rate,
+                                    size: _editProduct.size,
+                                    supplier: _editProduct.supplier,
+                                    alertQty: _editProduct.alertQty,
+                                    type: _editProduct.type,
+                                  );
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter a GST no.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                initialValue: _initValues['alertQty'],
+                                decoration: const InputDecoration(
+                                    labelText: 'Qty for Alert'),
+                                onSaved: (value) {
+                                  _editProduct = Product(
+                                    title: _editProduct.title,
+                                    id: _editProduct.id,
+                                    color: _editProduct.color,
+                                    dateTime: _editProduct.dateTime,
+                                    gstNo: _editProduct.gstNo,
+                                    imageUrl: _editProduct.imageUrl,
+                                    quantity: _editProduct.quantity,
+                                    rate: _editProduct.rate,
+                                    size: _editProduct.size,
+                                    supplier: _editProduct.supplier,
+                                    alertQty: int.parse(value!),
+                                    type: _editProduct.type,
+                                  );
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter Alert Qty.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 25),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(double.infinity, 40),
+                                  primary: kCyanColor,
+                                  elevation: 8,
+                                  shape: const StadiumBorder(),
+                                ),
+                                onPressed: () => _submitForm(),
+                                child: const Text(
+                                  'save',
+                                  style: TextStyle(
+                                    fontSize: 20,
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -650,3 +646,392 @@ class _EditProductScreenState extends State<EditProductScreen> {
     );
   }
 }
+
+
+// Padding(
+//               padding: const EdgeInsets.symmetric(horizontal: 12.0),
+//               child: Expanded(
+//                 child: SingleChildScrollView(
+//                   child: Padding(
+//                     padding: const EdgeInsets.all(16.0),
+//                     child: Column(
+//                       children: [
+//                         FocusScope(
+//                           node: _node,
+//                           child: Form(
+//                             key: _form,
+//                             child: Column(
+//                               children: [
+//                                 Row(
+//                                   children: [
+//                                     Expanded(
+//                                         child: Column(
+//                                       children: [
+//                                         TextFormField(
+//                                           initialValue: _initValues['title'],
+//                                           decoration: const InputDecoration(
+//                                               labelText: 'Title'),
+//                                           textInputAction: TextInputAction.next,
+//                                           onEditingComplete: _node.nextFocus,
+//                                           onSaved: (value) {
+//                                             _editProduct = Product(
+//                                               title: value!,
+//                                               id: _editProduct.id,
+//                                               color: _editProduct.color,
+//                                               dateTime: _editProduct.dateTime,
+//                                               gstNo: _editProduct.gstNo,
+//                                               imageUrl: _editProduct.imageUrl,
+//                                               quantity: _editProduct.quantity,
+//                                               rate: _editProduct.rate,
+//                                               size: _editProduct.size,
+//                                               supplier: _editProduct.supplier,
+//                                               alertQty: _editProduct.alertQty,
+//                                               type: _editProduct.type,
+//                                             );
+//                                           },
+//                                           validator: (value) {
+//                                             if (value!.isEmpty) {
+//                                               return 'Please enter a title.';
+//                                             }
+//                                             return null;
+//                                           },
+//                                         ),
+//                                         TextFormField(
+//                                           initialValue: _initValues['size'],
+//                                           decoration: const InputDecoration(
+//                                               labelText: 'Size'),
+//                                           textInputAction: TextInputAction.next,
+//                                           onEditingComplete: _node.nextFocus,
+//                                           keyboardType: TextInputType.number,
+//                                           onSaved: (value) {
+//                                             _editProduct = Product(
+//                                               title: _editProduct.title,
+//                                               id: _editProduct.id,
+//                                               color: _editProduct.color,
+//                                               dateTime: _editProduct.dateTime,
+//                                               gstNo: _editProduct.gstNo,
+//                                               imageUrl: _editProduct.imageUrl,
+//                                               quantity: _editProduct.quantity,
+//                                               rate: _editProduct.rate,
+//                                               size: double.parse(value!),
+//                                               supplier: _editProduct.supplier,
+//                                               alertQty: _editProduct.alertQty,
+//                                               type: _editProduct.type,
+//                                             );
+//                                           },
+//                                           validator: (value) {
+//                                             if (value!.isEmpty) {
+//                                               return 'Please enter the size.';
+//                                             }
+//                                             if (double.tryParse(value) ==
+//                                                 null) {
+//                                               return 'Please enter a valid size.';
+//                                             }
+
+//                                             return null;
+//                                           },
+//                                         ),
+//                                       ],
+//                                     )),
+//                                     Expanded(
+//                                       child: SizedBox(
+//                                         height: 150,
+//                                         child: Column(
+//                                           mainAxisAlignment:
+//                                               MainAxisAlignment.center,
+//                                           children: [
+//                                             GestureDetector(
+//                                               onTap: () => _showPicker(context),
+//                                               child: CircleAvatar(
+//                                                 radius: 55,
+//                                                 backgroundColor:
+//                                                     Colors.grey[200],
+//                                                 child: _image != null
+//                                                     ? ClipOval(
+//                                                         child: Image.file(
+//                                                           _image!,
+//                                                           width: 100,
+//                                                           height: 100,
+//                                                           fit: BoxFit.cover,
+//                                                         ),
+//                                                       )
+//                                                     : SizedBox(
+//                                                         width: 100,
+//                                                         height: 100,
+//                                                         child: SvgPicture.asset(
+//                                                           'assets/icons/camera.svg',
+//                                                         ),
+//                                                       ),
+//                                               ),
+//                                             ),
+//                                             const SizedBox(height: 10),
+//                                             const Text(
+//                                               'Product Image',
+//                                               style: TextStyle(
+//                                                 color: kGreyColor,
+//                                               ),
+//                                             ),
+//                                           ],
+//                                         ),
+//                                       ),
+//                                     )
+//                                   ],
+//                                 ),
+//                                 TextFormField(
+//                                   initialValue: _initValues['type'],
+//                                   decoration:
+//                                       const InputDecoration(labelText: 'Type'),
+//                                   textInputAction: TextInputAction.next,
+//                                   onEditingComplete: _node.nextFocus,
+//                                   onSaved: (value) {
+//                                     _editProduct = Product(
+//                                       title: _editProduct.title,
+//                                       id: _editProduct.id,
+//                                       color: _editProduct.color,
+//                                       dateTime: _editProduct.dateTime,
+//                                       gstNo: _editProduct.gstNo,
+//                                       imageUrl: _editProduct.imageUrl,
+//                                       quantity: _editProduct.quantity,
+//                                       rate: _editProduct.rate,
+//                                       size: _editProduct.size,
+//                                       alertQty: _editProduct.alertQty,
+//                                       supplier: _editProduct.supplier,
+//                                       type: value!,
+//                                     );
+//                                   },
+//                                   validator: (value) {
+//                                     if (value!.isEmpty) {
+//                                       return 'Please enter a type.';
+//                                     }
+
+//                                     return null;
+//                                   },
+//                                 ),
+//                                 TextFormField(
+//                                   initialValue: _initValues['quantity'],
+//                                   decoration: const InputDecoration(
+//                                       labelText: 'Quantity'),
+//                                   textInputAction: TextInputAction.next,
+//                                   keyboardType: TextInputType.number,
+//                                   onEditingComplete: _node.nextFocus,
+//                                   onSaved: (value) {
+//                                     _editProduct = Product(
+//                                       title: _editProduct.title,
+//                                       id: _editProduct.id,
+//                                       color: _editProduct.color,
+//                                       dateTime: _editProduct.dateTime,
+//                                       gstNo: _editProduct.gstNo,
+//                                       imageUrl: _editProduct.imageUrl,
+//                                       quantity: int.parse(value!),
+//                                       rate: _editProduct.rate,
+//                                       size: _editProduct.size,
+//                                       supplier: _editProduct.supplier,
+//                                       alertQty: _editProduct.alertQty,
+//                                       type: _editProduct.type,
+//                                     );
+//                                   },
+//                                   validator: (value) {
+//                                     if (value!.isEmpty) {
+//                                       return 'Please enter a quantity.';
+//                                     }
+//                                     return null;
+//                                   },
+//                                 ),
+//                                 TextFormField(
+//                                   initialValue: _initValues['color'],
+//                                   decoration:
+//                                       const InputDecoration(labelText: 'Color'),
+//                                   textInputAction: TextInputAction.next,
+//                                   keyboardType: TextInputType.text,
+//                                   onEditingComplete: _node.nextFocus,
+//                                   onSaved: (value) {
+//                                     _editProduct = Product(
+//                                       title: _editProduct.title,
+//                                       id: _editProduct.id,
+//                                       color: value!,
+//                                       dateTime: _editProduct.dateTime,
+//                                       gstNo: _editProduct.gstNo,
+//                                       imageUrl: _editProduct.imageUrl,
+//                                       quantity: _editProduct.quantity,
+//                                       rate: _editProduct.rate,
+//                                       size: _editProduct.size,
+//                                       supplier: _editProduct.supplier,
+//                                       alertQty: _editProduct.alertQty,
+//                                       type: _editProduct.type,
+//                                     );
+//                                   },
+//                                   validator: (value) {
+//                                     if (value!.isEmpty) {
+//                                       return 'Please enter a color.';
+//                                     }
+//                                     return null;
+//                                   },
+//                                 ),
+//                                 TextFormField(
+//                                   initialValue: _initValues['supplier'],
+//                                   decoration: const InputDecoration(
+//                                       labelText: 'Supplier'),
+//                                   textInputAction: TextInputAction.next,
+//                                   onEditingComplete: _node.nextFocus,
+//                                   onSaved: (value) {
+//                                     _editProduct = Product(
+//                                       title: _editProduct.title,
+//                                       id: _editProduct.id,
+//                                       color: _editProduct.color,
+//                                       dateTime: _editProduct.dateTime,
+//                                       gstNo: _editProduct.gstNo,
+//                                       imageUrl: _editProduct.imageUrl,
+//                                       quantity: _editProduct.quantity,
+//                                       rate: _editProduct.rate,
+//                                       size: _editProduct.size,
+//                                       supplier: value!,
+//                                       alertQty: _editProduct.alertQty,
+//                                       type: _editProduct.type,
+//                                     );
+//                                   },
+//                                   validator: (value) {
+//                                     if (value!.isEmpty) {
+//                                       return 'Please enter a supplier.';
+//                                     }
+//                                     return null;
+//                                   },
+//                                 ),
+//                                 const SizedBox(height: 32),
+//                                 Row(
+//                                   children: [
+//                                     const Text(
+//                                       'Date :',
+//                                       style: TextStyle(
+//                                           fontSize: 15, color: Colors.black),
+//                                     ),
+//                                     const SizedBox(width: 32),
+//                                     ElevatedButton(
+//                                       style: ElevatedButton.styleFrom(
+//                                         elevation: 8,
+//                                         primary: kCyanColor,
+//                                         padding: const EdgeInsets.symmetric(
+//                                             horizontal: 24),
+//                                       ),
+//                                       child: Text(
+//                                         getText(),
+//                                         style: const TextStyle(
+//                                           fontSize: 15,
+//                                         ),
+//                                       ),
+//                                       onPressed: () => pickDate(context),
+//                                     )
+//                                   ],
+//                                 ),
+//                                 TextFormField(
+//                                   initialValue: _initValues['rate'],
+//                                   decoration:
+//                                       const InputDecoration(labelText: 'Rate'),
+//                                   textInputAction: TextInputAction.next,
+//                                   keyboardType: TextInputType.number,
+//                                   onEditingComplete: _node.nextFocus,
+//                                   onSaved: (value) {
+//                                     _editProduct = Product(
+//                                       title: _editProduct.title,
+//                                       id: _editProduct.id,
+//                                       color: _editProduct.color,
+//                                       dateTime: _editProduct.dateTime,
+//                                       gstNo: _editProduct.gstNo,
+//                                       imageUrl: _editProduct.imageUrl,
+//                                       quantity: _editProduct.quantity,
+//                                       rate: double.parse(value!),
+//                                       size: _editProduct.size,
+//                                       supplier: _editProduct.supplier,
+//                                       alertQty: _editProduct.alertQty,
+//                                       type: _editProduct.type,
+//                                     );
+//                                   },
+//                                   validator: (value) {
+//                                     if (value!.isEmpty) {
+//                                       return 'Please enter a rate.';
+//                                     }
+//                                     return null;
+//                                   },
+//                                 ),
+//                                 TextFormField(
+//                                   initialValue: _initValues['gstNo'],
+//                                   textInputAction: TextInputAction.next,
+//                                   decoration: const InputDecoration(
+//                                       labelText: 'GST No'),
+//                                   onSaved: (value) {
+//                                     _editProduct = Product(
+//                                       title: _editProduct.title,
+//                                       id: _editProduct.id,
+//                                       color: _editProduct.color,
+//                                       dateTime: _editProduct.dateTime,
+//                                       gstNo: value!,
+//                                       imageUrl: _editProduct.imageUrl,
+//                                       quantity: _editProduct.quantity,
+//                                       rate: _editProduct.rate,
+//                                       size: _editProduct.size,
+//                                       supplier: _editProduct.supplier,
+//                                       alertQty: _editProduct.alertQty,
+//                                       type: _editProduct.type,
+//                                     );
+//                                   },
+//                                   validator: (value) {
+//                                     if (value!.isEmpty) {
+//                                       return 'Please enter a GST no.';
+//                                     }
+//                                     return null;
+//                                   },
+//                                 ),
+//                                 TextFormField(
+//                                   initialValue: _initValues['alertQty'],
+//                                   decoration: const InputDecoration(
+//                                       labelText: 'Qty for Alert'),
+//                                   onSaved: (value) {
+//                                     _editProduct = Product(
+//                                       title: _editProduct.title,
+//                                       id: _editProduct.id,
+//                                       color: _editProduct.color,
+//                                       dateTime: _editProduct.dateTime,
+//                                       gstNo: _editProduct.gstNo,
+//                                       imageUrl: _editProduct.imageUrl,
+//                                       quantity: _editProduct.quantity,
+//                                       rate: _editProduct.rate,
+//                                       size: _editProduct.size,
+//                                       supplier: _editProduct.supplier,
+//                                       alertQty: int.parse(value!),
+//                                       type: _editProduct.type,
+//                                     );
+//                                   },
+//                                   validator: (value) {
+//                                     if (value!.isEmpty) {
+//                                       return 'Please enter Alert Qty.';
+//                                     }
+//                                     return null;
+//                                   },
+//                                 ),
+//                                 const SizedBox(height: 25),
+//                                 ElevatedButton(
+//                                   style: ElevatedButton.styleFrom(
+//                                     minimumSize:
+//                                         const Size(double.infinity, 40),
+//                                     primary: kCyanColor,
+//                                     elevation: 8,
+//                                     shape: const StadiumBorder(),
+//                                   ),
+//                                   onPressed: () => _submitForm(),
+//                                   child: const Text(
+//                                     'save',
+//                                     style: TextStyle(
+//                                       fontSize: 20,
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
+   

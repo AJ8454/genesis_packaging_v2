@@ -128,10 +128,10 @@ class _VendorDetailScreenState extends State<VendorDetailScreen> {
                       itemBuilder: (context, index) => VendorItem(
                         id: _searchResultList[index].id,
                         companyName: _searchResultList[index].companyName,
-                        address: _searchResultList[index].address,
+                        address: _searchResultList[index].vendorAddress,
                         name: _searchResultList[index].name,
                         vendorMobileNo:
-                            _searchResultList[index].vendorMobileNo.toString(),
+                            _searchResultList[index].vendorMobileNum.toString(),
                         vendorEmail: _searchResultList[index].vendorEmail,
                       ),
                     ),

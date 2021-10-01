@@ -116,168 +116,165 @@ class _EditVendorScreenState extends State<EditVendorScreen> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        FocusScope(
-                          node: _node,
-                          child: Form(
-                            key: _form,
-                            child: Column(
-                              children: [
-                                TextFormField(
-                                  initialValue: _initValues['name'],
-                                  decoration: const InputDecoration(
-                                      labelText: 'Vendor Name'),
-                                  textInputAction: TextInputAction.next,
-                                  onEditingComplete: _node.nextFocus,
-                                  onSaved: (value) {
-                                    _editVendor = Vendor(
-                                      name: value!,
-                                      id: _editVendor.id,
-                                      companyName: _editVendor.companyName,
-                                      vendorAddress: _editVendor.vendorAddress,
-                                      vendorEmail: _editVendor.vendorEmail,
-                                      vendorMobileNum:
-                                          _editVendor.vendorMobileNum,
-                                    );
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter a vendor name.';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                TextFormField(
-                                  initialValue: _initValues['companyName'],
-                                  decoration: const InputDecoration(
-                                      labelText: 'Vendor Company Name'),
-                                  textInputAction: TextInputAction.next,
-                                  onEditingComplete: _node.nextFocus,
-                                  onSaved: (value) {
-                                    _editVendor = Vendor(
-                                      name: _editVendor.name,
-                                      id: _editVendor.id,
-                                      companyName: value!,
-                                      vendorAddress: _editVendor.vendorAddress,
-                                      vendorEmail: _editVendor.vendorEmail,
-                                      vendorMobileNum:
-                                          _editVendor.vendorMobileNum,
-                                    );
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter the company name.';
-                                    }
+          : ConstrainedBox(
+              constraints:
+                  BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    children: [
+                      FocusScope(
+                        node: _node,
+                        child: Form(
+                          key: _form,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                initialValue: _initValues['name'],
+                                decoration: const InputDecoration(
+                                    labelText: 'Vendor Name'),
+                                textInputAction: TextInputAction.next,
+                                onEditingComplete: _node.nextFocus,
+                                onSaved: (value) {
+                                  _editVendor = Vendor(
+                                    name: value!,
+                                    id: _editVendor.id,
+                                    companyName: _editVendor.companyName,
+                                    vendorAddress: _editVendor.vendorAddress,
+                                    vendorEmail: _editVendor.vendorEmail,
+                                    vendorMobileNum:
+                                        _editVendor.vendorMobileNum,
+                                  );
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter a vendor name.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                initialValue: _initValues['companyName'],
+                                decoration: const InputDecoration(
+                                    labelText: 'Vendor Company Name'),
+                                textInputAction: TextInputAction.next,
+                                onEditingComplete: _node.nextFocus,
+                                onSaved: (value) {
+                                  _editVendor = Vendor(
+                                    name: _editVendor.name,
+                                    id: _editVendor.id,
+                                    companyName: value!,
+                                    vendorAddress: _editVendor.vendorAddress,
+                                    vendorEmail: _editVendor.vendorEmail,
+                                    vendorMobileNum:
+                                        _editVendor.vendorMobileNum,
+                                  );
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter the company name.';
+                                  }
 
-                                    return null;
-                                  },
-                                ),
-                                TextFormField(
-                                  initialValue: _initValues['vendorAddress'],
-                                  decoration: const InputDecoration(
-                                      labelText: 'Vendor Address'),
-                                  textInputAction: TextInputAction.next,
-                                  maxLines: 3,
-                                  onEditingComplete: _node.nextFocus,
-                                  onSaved: (value) {
-                                    _editVendor = Vendor(
-                                      name: _editVendor.name,
-                                      id: _editVendor.id,
-                                      companyName: _editVendor.companyName,
-                                      vendorAddress: value!,
-                                      vendorEmail: _editVendor.vendorEmail,
-                                      vendorMobileNum:
-                                          _editVendor.vendorMobileNum,
-                                    );
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter the address.';
-                                    }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                initialValue: _initValues['vendorAddress'],
+                                decoration: const InputDecoration(
+                                    labelText: 'Vendor Address'),
+                                textInputAction: TextInputAction.next,
+                                maxLines: 3,
+                                onEditingComplete: _node.nextFocus,
+                                onSaved: (value) {
+                                  _editVendor = Vendor(
+                                    name: _editVendor.name,
+                                    id: _editVendor.id,
+                                    companyName: _editVendor.companyName,
+                                    vendorAddress: value!,
+                                    vendorEmail: _editVendor.vendorEmail,
+                                    vendorMobileNum:
+                                        _editVendor.vendorMobileNum,
+                                  );
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter the address.';
+                                  }
 
-                                    return null;
-                                  },
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                initialValue: _initValues['vendorMobileNum'],
+                                decoration: const InputDecoration(
+                                    labelText: 'Vendor Mobile No'),
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.number,
+                                onEditingComplete: _node.nextFocus,
+                                onSaved: (value) {
+                                  _editVendor = Vendor(
+                                    name: _editVendor.name,
+                                    id: _editVendor.id,
+                                    companyName: _editVendor.companyName,
+                                    vendorAddress: _editVendor.vendorAddress,
+                                    vendorEmail: _editVendor.vendorEmail,
+                                    vendorMobileNum: int.parse(value!),
+                                  );
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter mobile number.';
+                                  } else if (value.length < 10) {
+                                    return 'Please enter correct mobile number.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                initialValue: _initValues['vendorEamil'],
+                                decoration: const InputDecoration(
+                                    labelText: 'Vendor Eamil'),
+                                keyboardType: TextInputType.emailAddress,
+                                onSaved: (value) {
+                                  _editVendor = Vendor(
+                                    name: _editVendor.name,
+                                    id: _editVendor.id,
+                                    companyName: _editVendor.companyName,
+                                    vendorAddress: _editVendor.vendorAddress,
+                                    vendorEmail: value!,
+                                    vendorMobileNum:
+                                        _editVendor.vendorMobileNum,
+                                  );
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter a email id.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 25),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(double.infinity, 40),
+                                  primary: kCyanColor,
+                                  elevation: 8,
+                                  shape: const StadiumBorder(),
                                 ),
-                                TextFormField(
-                                  initialValue: _initValues['vendorMobileNum'],
-                                  decoration: const InputDecoration(
-                                      labelText: 'Vendor Mobile No'),
-                                  textInputAction: TextInputAction.next,
-                                  keyboardType: TextInputType.number,
-                                  onEditingComplete: _node.nextFocus,
-                                  onSaved: (value) {
-                                    _editVendor = Vendor(
-                                      name: _editVendor.name,
-                                      id: _editVendor.id,
-                                      companyName: _editVendor.companyName,
-                                      vendorAddress: _editVendor.vendorAddress,
-                                      vendorEmail: _editVendor.vendorEmail,
-                                      vendorMobileNum: int.parse(value!),
-                                    );
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter mobile number.';
-                                    } else if (value.length <= 10) {
-                                      return 'Please enter correct mobile number.';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                TextFormField(
-                                  initialValue: _initValues['vendorEamil'],
-                                  decoration: const InputDecoration(
-                                      labelText: 'Vendor Eamil'),
-                                  keyboardType: TextInputType.emailAddress,
-                                  onSaved: (value) {
-                                    _editVendor = Vendor(
-                                      name: _editVendor.name,
-                                      id: _editVendor.id,
-                                      companyName: _editVendor.companyName,
-                                      vendorAddress: _editVendor.vendorAddress,
-                                      vendorEmail: value!,
-                                      vendorMobileNum:
-                                          _editVendor.vendorMobileNum,
-                                    );
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter a email id.';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(height: 25),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    minimumSize:
-                                        const Size(double.infinity, 40),
-                                    primary: kCyanColor,
-                                    elevation: 8,
-                                    shape: const StadiumBorder(),
-                                  ),
-                                  onPressed: () => _submitForm(),
-                                  child: Text(
-                                    'Save',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.grey[800],
-                                    ),
+                                onPressed: () => _submitForm(),
+                                child: const Text(
+                                  'Save',
+                                  style: TextStyle(
+                                    fontSize: 20,
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
