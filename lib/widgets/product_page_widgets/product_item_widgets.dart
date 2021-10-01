@@ -36,10 +36,11 @@ class _ProductItemState extends State<ProductItem> {
           Expanded(
             child: SizedBox(
               height: 90,
-              child: widget.imageUrl! =='' ? Image.network(
-                widget.imageUrl!,
-              ) :
-              SvgPicture.asset('assets/icons/landscape-image.svg'),
+              child: widget.imageUrl!.contains('firebasestorage')
+                  ? Image.network(
+                      widget.imageUrl!,
+                    )
+                  : SvgPicture.asset('assets/icons/landscape-image.svg'),
             ),
           ),
           Expanded(
