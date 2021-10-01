@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:genesis_packaging_v2/provider/customer_provider.dart';
-import 'package:genesis_packaging_v2/provider/vendor_provider.dart';
 import 'package:genesis_packaging_v2/utility/constant.dart';
 import 'package:provider/provider.dart';
 

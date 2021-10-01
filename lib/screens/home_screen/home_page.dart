@@ -23,7 +23,8 @@ class HomePage extends StatelessWidget {
           GridItems(
             iconPath: 'assets/icons/purchaseEntry.svg',
             title: 'Purchase Entry',
-            onClicked: () => Navigator.of(context).pushNamed('/PurchaseEntry'),
+            onClicked: () =>
+                Navigator.of(context).pushNamed('/PurchaseEntryScreen'),
           ),
           GridItems(
             iconPath: 'assets/icons/salesEntry.svg',

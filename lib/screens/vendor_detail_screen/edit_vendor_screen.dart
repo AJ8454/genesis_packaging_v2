@@ -281,4 +281,6 @@ class _EditVendorScreenState extends State<EditVendorScreen> {
             ),
     );
   }
+
+  
 }

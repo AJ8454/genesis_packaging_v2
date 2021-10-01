@@ -4,7 +4,6 @@ import 'package:genesis_packaging_v2/utility/constant.dart';
 import 'package:genesis_packaging_v2/widgets/app_drawer.dart';
 import 'package:genesis_packaging_v2/widgets/customer_page_widget/customer_item_widget.dart';
 import 'package:genesis_packaging_v2/widgets/snack_bar.dart';
-import 'package:genesis_packaging_v2/widgets/vendor_page_widgets/vendor_item_widget.dart';
 import 'package:provider/provider.dart';
 
 class CustomerDetailScreen extends StatefulWidget {
