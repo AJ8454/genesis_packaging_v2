@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:genesis_packaging_v2/provider/product_provider.dart';
 import 'package:genesis_packaging_v2/utility/constant.dart';
 import 'package:genesis_packaging_v2/widgets/app_drawer.dart';

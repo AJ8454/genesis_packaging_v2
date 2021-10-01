@@ -33,6 +33,7 @@ class ProductProvider with ChangeNotifier {
           dateTime: prodData['dateTime'],
           gstNo: prodData['gstNo'],
           quantity: prodData['quantity'],
+          imageUrl: prodData['imageUrl'],
           rate: prodData['rate'],
           supplier: prodData['supplier'],
         ));
@@ -58,7 +59,7 @@ class ProductProvider with ChangeNotifier {
           'dateTime': product.dateTime,
           'quantity': product.quantity,
           'gstNo': product.gstNo,
-          // 'imageUrl': '',
+          'imageUrl': product.imageUrl,
           'rate': product.rate,
           'supplier': product.supplier,
         }),
@@ -72,7 +73,7 @@ class ProductProvider with ChangeNotifier {
         dateTime: product.dateTime,
         quantity: product.quantity,
         gstNo: product.gstNo,
-        // imageUrl: '',
+        imageUrl: product.imageUrl,
         rate: product.rate,
         supplier: product.supplier,
       );
@@ -97,6 +98,7 @@ class ProductProvider with ChangeNotifier {
             'dateTime': newProduct.dateTime,
             'quantity': newProduct.quantity,
             'gstNo': newProduct.gstNo,
+            'imageUrl': newProduct.imageUrl,
             'rate': newProduct.rate,
             'supplier': newProduct.supplier,
           }));
@@ -112,12 +114,11 @@ class ProductProvider with ChangeNotifier {
     dynamic exsistingProduct = _items[exsistingProductIndex];
     _items.removeAt(exsistingProductIndex);
     notifyListeners();
-    // _items.removeWhere((prod) => prod.id == id);
+
     final response = await http.delete(Uri.parse(url));
     if (response.statusCode >= 400) {
       _items.insert(exsistingProductIndex, exsistingProduct);
       notifyListeners();
-      //throw HttpException(message: 'Could not delete product.');
     }
     exsistingProduct = null;
   }

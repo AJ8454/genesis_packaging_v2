@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,7 +19,7 @@ class EditProductScreen extends StatefulWidget {
 }
 
 class _EditProductScreenState extends State<EditProductScreen> {
-  File? image;
+  File? _image;
   var _isInit = true;
   var _isLoading = false;
   final FocusScopeNode _node = FocusScopeNode();
@@ -34,7 +34,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     dateTime: '',
     quantity: 0,
     gstNo: '',
-    // imageUrl: '',
+    imageUrl: '',
     rate: 0.0,
     supplier: '',
   );
@@ -73,13 +73,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
           'size': _editProduct.size.toString(),
           'title': _editProduct.title!,
           'type': _editProduct.type!,
-          'color': _editProduct.color.toString(),
+          'color': _editProduct.color!,
           'dateTime': _editProduct.dateTime.toString(),
           'quantity': _editProduct.quantity.toString(),
           'gstNo': _editProduct.gstNo.toString(),
-          // 'imageUrl': '',
+          'imageUrl': _editProduct.imageUrl,
           'rate': _editProduct.rate.toString(),
-          'supplier': _editProduct.supplier.toString(),
+          'supplier': _editProduct.supplier!,
         };
       }
     }
@@ -104,6 +104,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     });
 
     if (_editProduct.id != null) {
+      await uploadImage();
       await Provider.of<ProductProvider>(context, listen: false)
           .updateProduct(_editProduct.id!, _editProduct)
           .then(
@@ -113,6 +114,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             ),
           );
     } else {
+      await uploadImage();
       await Provider.of<ProductProvider>(context, listen: false)
           .addProduct(_editProduct)
           .then(
@@ -186,7 +188,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                                   dateTime:
                                                       _editProduct.dateTime,
                                                   gstNo: _editProduct.gstNo,
-                                                  //imageUrl: _editProduct.imageUrl,
+                                                  imageUrl:
+                                                      _editProduct.imageUrl,
                                                   quantity:
                                                       _editProduct.quantity,
                                                   rate: _editProduct.rate,
@@ -221,7 +224,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                                   dateTime:
                                                       _editProduct.dateTime,
                                                   gstNo: _editProduct.gstNo,
-                                                  //imageUrl: _editProduct.imageUrl,
+                                                  imageUrl:
+                                                      _editProduct.imageUrl,
                                                   quantity:
                                                       _editProduct.quantity,
                                                   rate: _editProduct.rate,
@@ -252,29 +256,38 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                SizedBox(
-                                                  height: 100,
-                                                  width: 100,
-                                                  child: image != null
-                                                      ? Image.file(
-                                                          image!,
-                                                          width: 80,
-                                                          height: 70,
-                                                        )
-                                                      : IconButton(
-                                                          onPressed: () =>
-                                                              pickImage(),
-                                                          icon: SvgPicture.asset(
+                                                GestureDetector(
+                                                  onTap: () =>
+                                                      _showPicker(context),
+                                                  child: CircleAvatar(
+                                                    radius: 55,
+                                                    backgroundColor:
+                                                        Colors.grey[200],
+                                                    child: _image != null
+                                                        ? ClipOval(
+                                                            child: Image.file(
+                                                              _image!,
+                                                              width: 100,
+                                                              height: 100,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          )
+                                                        : SizedBox(
+                                                            width: 100,
+                                                            height: 100,
+                                                            child: SvgPicture
+                                                                .asset(
                                                               'assets/icons/camera.svg',
-                                                              color:
-                                                                  kGreyColor),
-                                                        ),
+                                                            ),
+                                                          ),
+                                                  ),
                                                 ),
                                                 const SizedBox(height: 10),
                                                 const Text(
                                                   'Product Image',
                                                   style: TextStyle(
-                                                      color: kGreyColor),
+                                                    color: kGreyColor,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -295,7 +308,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                           color: _editProduct.color,
                                           dateTime: _editProduct.dateTime,
                                           gstNo: _editProduct.gstNo,
-                                          //imageUrl: _editProduct.imageUrl,
+                                          imageUrl: _editProduct.imageUrl,
                                           quantity: _editProduct.quantity,
                                           rate: _editProduct.rate,
                                           size: _editProduct.size,
@@ -325,7 +338,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                           color: _editProduct.color,
                                           dateTime: _editProduct.dateTime,
                                           gstNo: _editProduct.gstNo,
-                                          //imageUrl: _editProduct.imageUrl,
+                                          imageUrl: _editProduct.imageUrl,
                                           quantity: int.parse(value!),
                                           rate: _editProduct.rate,
                                           size: _editProduct.size,
@@ -354,7 +367,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                           color: value!,
                                           dateTime: _editProduct.dateTime,
                                           gstNo: _editProduct.gstNo,
-                                          //imageUrl: _editProduct.imageUrl,
+                                          imageUrl: _editProduct.imageUrl,
                                           quantity: _editProduct.quantity,
                                           rate: _editProduct.rate,
                                           size: _editProduct.size,
@@ -382,7 +395,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                           color: _editProduct.color,
                                           dateTime: _editProduct.dateTime,
                                           gstNo: _editProduct.gstNo,
-                                          //imageUrl: _editProduct.imageUrl,
+                                          imageUrl: _editProduct.imageUrl,
                                           quantity: _editProduct.quantity,
                                           rate: _editProduct.rate,
                                           size: _editProduct.size,
@@ -438,7 +451,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                           color: _editProduct.color,
                                           dateTime: _editProduct.dateTime,
                                           gstNo: _editProduct.gstNo,
-                                          //imageUrl: _editProduct.imageUrl,
+                                          imageUrl: _editProduct.imageUrl,
                                           quantity: _editProduct.quantity,
                                           rate: double.parse(value!),
                                           size: _editProduct.size,
@@ -464,7 +477,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                           color: _editProduct.color,
                                           dateTime: _editProduct.dateTime,
                                           gstNo: value!,
-                                          //imageUrl: _editProduct.imageUrl,
+                                          imageUrl: _editProduct.imageUrl,
                                           quantity: _editProduct.quantity,
                                           rate: _editProduct.rate,
                                           size: _editProduct.size,
@@ -511,15 +524,82 @@ class _EditProductScreenState extends State<EditProductScreen> {
     );
   }
 
-  Future pickImage() async {
+  void _showPicker(context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => SafeArea(
+        child: Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.photo_library),
+              title: const Text('Photo Library'),
+              onTap: () {
+                _imgFromGallery();
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_camera),
+              title: const Text('Camera'),
+              onTap: () {
+                _imgFromCamera();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _imgFromCamera() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      final image = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        imageQuality: 40,
+      );
       if (image == null) return;
 
       final imageTemporary = File(image.path);
-      setState(() => this.image = imageTemporary);
+      setState(() => _image = imageTemporary);
     } catch (e) {
-      print('User as dined the permission $e');
+      rethrow;
+    }
+  }
+
+  _imgFromGallery() async {
+    try {
+      final image = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 40,
+      );
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      setState(() => _image = imageTemporary);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> uploadImage() async {
+    if (_image != null) {
+      String? fileName = _image!.path.split('/').last;
+      Reference ref = FirebaseStorage.instance.ref().child(fileName);
+      await ref.putFile(_image!);
+      String? _imageUrl = await ref.getDownloadURL();
+      _editProduct = Product(
+        title: _editProduct.title,
+        rate: _editProduct.rate,
+        size: _editProduct.size,
+        color: _editProduct.color,
+        gstNo: _editProduct.gstNo,
+        imageUrl: _imageUrl,
+        quantity: _editProduct.quantity,
+        supplier: _editProduct.supplier,
+        type: _editProduct.type,
+        dateTime: uploadDate!,
+        id: _editProduct.id,
+      );
     }
   }
 
@@ -541,6 +621,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       size: _editProduct.size,
       color: _editProduct.color,
       gstNo: _editProduct.gstNo,
+      imageUrl: _editProduct.imageUrl,
       quantity: _editProduct.quantity,
       supplier: _editProduct.supplier,
       type: _editProduct.type,
