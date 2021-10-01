@@ -11,6 +11,7 @@ class Product with ChangeNotifier {
   final String? dateTime;
   final double? rate;
   final String? gstNo;
+  final int? alertQty;
   final String imageUrl;
 
   Product({
@@ -24,6 +25,7 @@ class Product with ChangeNotifier {
     required this.dateTime,
     required this.rate,
     required this.gstNo,
+    required this.alertQty,
     required this.imageUrl,
   });
 }

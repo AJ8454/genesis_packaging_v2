@@ -8,12 +8,15 @@ import 'provider/email_sign_in_provider.dart';
 import 'provider/employee_provider.dart';
 import 'provider/google_sign_in_provider.dart';
 import 'provider/product_provider.dart';
+import 'provider/vendor_provider.dart';
 import 'screens/auth_screen/auth_page.dart';
 import 'screens/employees_screen/edit_employee_screen.dart';
 import 'screens/employees_screen/employee_screen.dart';
 import 'screens/orders_screen/order_screen.dart';
 import 'screens/product_screen/edit_product_screen.dart';
 import 'screens/product_screen/product_screen.dart';
+import 'screens/vendor_detail_screen/edit_vendor_screen.dart';
+import 'screens/vendor_detail_screen/vendor_detail_screen.dart';
 import 'utility/constant.dart';
 
 void main() async {
@@ -36,6 +39,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => EmailSignInProvider()),
         ChangeNotifierProvider(create: (ctx) => ProductProvider()),
         ChangeNotifierProvider(create: (ctx) => EmployeeProvider()),
+        ChangeNotifierProvider(create: (ctx) => VendorProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -54,6 +58,8 @@ class MyApp extends StatelessWidget {
           '/EmployeeScreen': (ctx) => const EmployeeScreen(),
           '/EditEmployeeScreen': (ctx) => const EditEmployeeScreen(),
           '/OrderScreen': (ctx) => const OrderScreen(),
+          '/VendorDetailScreen': (ctx) => const VendorDetailScreen(),
+          '/EditVendorScreen': (ctx) => const EditVendorScreen(),
         },
       ),
     );

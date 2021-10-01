@@ -35,6 +35,7 @@ class ProductProvider with ChangeNotifier {
           quantity: prodData['quantity'],
           imageUrl: prodData['imageUrl'],
           rate: prodData['rate'],
+          alertQty: prodData['alertQty'],
           supplier: prodData['supplier'],
         ));
       });
@@ -61,6 +62,7 @@ class ProductProvider with ChangeNotifier {
           'gstNo': product.gstNo,
           'imageUrl': product.imageUrl,
           'rate': product.rate,
+          'alertQty': product.alertQty,
           'supplier': product.supplier,
         }),
       );
@@ -75,6 +77,7 @@ class ProductProvider with ChangeNotifier {
         gstNo: product.gstNo,
         imageUrl: product.imageUrl,
         rate: product.rate,
+        alertQty: product.alertQty,
         supplier: product.supplier,
       );
       _items.add(newProduct);
@@ -100,6 +103,7 @@ class ProductProvider with ChangeNotifier {
             'gstNo': newProduct.gstNo,
             'imageUrl': newProduct.imageUrl,
             'rate': newProduct.rate,
+            'alertQty': newProduct.alertQty,
             'supplier': newProduct.supplier,
           }));
       _items[productIndex] = newProduct;

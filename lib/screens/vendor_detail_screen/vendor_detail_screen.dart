@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:genesis_packaging_v2/provider/product_provider.dart';
+import 'package:genesis_packaging_v2/provider/vendor_provider.dart';
 import 'package:genesis_packaging_v2/utility/constant.dart';
 import 'package:genesis_packaging_v2/widgets/app_drawer.dart';
-import 'package:genesis_packaging_v2/widgets/product_page_widgets/product_item_widgets.dart';
 import 'package:genesis_packaging_v2/widgets/snack_bar.dart';
+import 'package:genesis_packaging_v2/widgets/vendor_page_widgets/vendor_item_widget.dart';
 import 'package:provider/provider.dart';
 
-class ProductScreen extends StatefulWidget {
-  const ProductScreen({Key? key}) : super(key: key);
+class VendorDetailScreen extends StatefulWidget {
+  const VendorDetailScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProductScreen> createState() => _ProductScreenState();
+  State<VendorDetailScreen> createState() => _VendorDetailScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
+class _VendorDetailScreenState extends State<VendorDetailScreen> {
   final TextEditingController _searchController = TextEditingController();
   List _allResult = [];
   List _searchResultList = [];
   Future? resultLoaded;
   bool? isLoading = true;
   List? data;
-  _refreshProducts() async {
+  _refreshVendor() async {
     try {
-      await Provider.of<ProductProvider>(context, listen: false)
-          .fetchAndSetProducts()
+      await Provider.of<VendorProvider>(context, listen: false)
+          .fetchAndSetVendor()
           .then((_) {
-        data = Provider.of<ProductProvider>(context, listen: false).items;
+        data = Provider.of<VendorProvider>(context, listen: false).items;
         setState(() {
           _allResult = data!;
           isLoading = false;
@@ -39,7 +39,7 @@ class _ProductScreenState extends State<ProductScreen> {
       });
       SnackBarWidget.showSnackBar(
         context,
-        'No Product Added yet',
+        'No Vendor Added yet',
       );
     }
   }
@@ -47,7 +47,7 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    resultLoaded = _refreshProducts();
+    resultLoaded = _refreshVendor();
   }
 
   @override
@@ -71,8 +71,8 @@ class _ProductScreenState extends State<ProductScreen> {
     var showResult = [];
     if (_searchController.text != '') {
       showResult = _allResult.where((prod) {
-        var proTitle = prod.title!.toLowerCase();
-        return proTitle.contains(_searchController.text.toLowerCase());
+        var proName = prod.name!.toLowerCase();
+        return proName.contains(_searchController.text.toLowerCase());
       }).toList();
     } else {
       showResult = List.from(_allResult);
@@ -87,13 +87,13 @@ class _ProductScreenState extends State<ProductScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Products',
+          'Vendor Details',
           style: kAppbarTextStyle,
         ),
         actions: [
           IconButton(
             onPressed: () =>
-                Navigator.of(context).pushNamed('/EditProductScreen'),
+                Navigator.of(context).pushNamed('/EditVendorScreen'),
             icon: const Icon(Icons.add),
           )
         ],
@@ -125,11 +125,14 @@ class _ProductScreenState extends State<ProductScreen> {
                   Expanded(
                     child: ListView.builder(
                       itemCount: _searchResultList.length,
-                      itemBuilder: (context, index) => ProductItem(
+                      itemBuilder: (context, index) => VendorItem(
                         id: _searchResultList[index].id,
-                        imageUrl: _searchResultList[index].imageUrl,
-                        title: _searchResultList[index].title,
-                        balQty: _searchResultList[index].quantity.toString(),
+                        companyName: _searchResultList[index].companyName,
+                        address: _searchResultList[index].address,
+                        name: _searchResultList[index].name,
+                        vendorMobileNo:
+                            _searchResultList[index].vendorMobileNo.toString(),
+                        vendorEmail: _searchResultList[index].vendorEmail,
                       ),
                     ),
                   ),

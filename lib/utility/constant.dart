@@ -10,7 +10,6 @@ const kCyanColor = Color(0xFF008175);
 
 const kAppbarTextStyle = TextStyle(
   fontSize: 16,
-  fontWeight: FontWeight.bold,
 );
 
 const kLabelTextStyle = TextStyle(

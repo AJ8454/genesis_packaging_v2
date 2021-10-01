@@ -41,6 +41,17 @@ class HomePage extends StatelessWidget {
             onClicked: () => Navigator.of(context).pushNamed('/ProductScreen'),
           ),
           GridItems(
+            iconPath: 'assets/icons/vendor.svg',
+            title: 'Vendor Detail',
+            onClicked: () =>
+                Navigator.of(context).pushNamed('/VendorDetailScreen'),
+          ),
+          GridItems(
+            iconPath: 'assets/icons/customers.svg',
+            title: 'Customer Detail',
+            onClicked: () => Navigator.of(context).pushNamed('/ProductScreen'),
+          ),
+          GridItems(
             iconPath: 'assets/icons/orders.svg',
             title: 'Orders',
             onClicked: () => Navigator.of(context).pushNamed('/OrderScreen'),
@@ -50,11 +61,11 @@ class HomePage extends StatelessWidget {
             title: 'Employees',
             onClicked: () => Navigator.of(context).pushNamed('/EmployeeScreen'),
           ),
-          GridItems(
-            iconPath: 'assets/icons/attandancePerson.svg',
-            title: 'Attendance',
-            onClicked: () => Navigator.of(context).pushNamed('/EmployeeScreen'),
-          ),
+          // GridItems(
+          //   iconPath: 'assets/icons/attandancePerson.svg',
+          //   title: 'Attendance',
+          //   onClicked: () => Navigator.of(context).pushNamed('/EmployeeScreen'),
+          // ),
         ],
       ),
     );
