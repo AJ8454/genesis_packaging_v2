@@ -141,7 +141,8 @@ class _EditCustomerScreenState extends State<EditCustomerScreen> {
                                     name: value!,
                                     id: _editCustomer.id,
                                     companyName: _editCustomer.companyName,
-                                    customerAddress: _editCustomer.customerAddress,
+                                    customerAddress:
+                                        _editCustomer.customerAddress,
                                     customerEmail: _editCustomer.customerEmail,
                                     customerMobileNum:
                                         _editCustomer.customerMobileNum,
@@ -165,7 +166,8 @@ class _EditCustomerScreenState extends State<EditCustomerScreen> {
                                     name: _editCustomer.name,
                                     id: _editCustomer.id,
                                     companyName: value!,
-                                    customerAddress: _editCustomer.customerAddress,
+                                    customerAddress:
+                                        _editCustomer.customerAddress,
                                     customerEmail: _editCustomer.customerEmail,
                                     customerMobileNum:
                                         _editCustomer.customerMobileNum,
@@ -183,7 +185,7 @@ class _EditCustomerScreenState extends State<EditCustomerScreen> {
                                 initialValue: _initValues['customerAddress'],
                                 decoration: const InputDecoration(
                                     labelText: 'Customer Address'),
-                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.multiline,
                                 maxLines: 3,
                                 onEditingComplete: _node.nextFocus,
                                 onSaved: (value) {
@@ -217,7 +219,8 @@ class _EditCustomerScreenState extends State<EditCustomerScreen> {
                                     name: _editCustomer.name,
                                     id: _editCustomer.id,
                                     companyName: _editCustomer.companyName,
-                                    customerAddress: _editCustomer.customerAddress,
+                                    customerAddress:
+                                        _editCustomer.customerAddress,
                                     customerEmail: _editCustomer.customerEmail,
                                     customerMobileNum: int.parse(value!),
                                   );
@@ -241,7 +244,8 @@ class _EditCustomerScreenState extends State<EditCustomerScreen> {
                                     name: _editCustomer.name,
                                     id: _editCustomer.id,
                                     companyName: _editCustomer.companyName,
-                                    customerAddress: _editCustomer.customerAddress,
+                                    customerAddress:
+                                        _editCustomer.customerAddress,
                                     customerEmail: value!,
                                     customerMobileNum:
                                         _editCustomer.customerMobileNum,

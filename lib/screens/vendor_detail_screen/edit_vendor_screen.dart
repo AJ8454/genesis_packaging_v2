@@ -183,7 +183,7 @@ class _EditVendorScreenState extends State<EditVendorScreen> {
                                 initialValue: _initValues['vendorAddress'],
                                 decoration: const InputDecoration(
                                     labelText: 'Vendor Address'),
-                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.multiline,
                                 maxLines: 3,
                                 onEditingComplete: _node.nextFocus,
                                 onSaved: (value) {

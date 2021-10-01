@@ -23,12 +23,13 @@ class HomePage extends StatelessWidget {
           GridItems(
             iconPath: 'assets/icons/purchaseEntry.svg',
             title: 'Purchase Entry',
-            onClicked: () => Navigator.of(context).pushNamed('/ProductScreen'),
+            onClicked: () => Navigator.of(context).pushNamed('/PurchaseEntry'),
           ),
           GridItems(
             iconPath: 'assets/icons/salesEntry.svg',
             title: 'Sales Entry',
-            onClicked: () => Navigator.of(context).pushNamed('/ProductScreen'),
+            onClicked:
+                () {}, //=> Navigator.of(context).pushNamed('/ProductScreen'),
           ),
           GridItems(
             iconPath: 'assets/icons/productList.svg',
@@ -38,7 +39,8 @@ class HomePage extends StatelessWidget {
           GridItems(
             iconPath: 'assets/icons/productList.svg',
             title: 'Closing Stock',
-            onClicked: () => Navigator.of(context).pushNamed('/ProductScreen'),
+            onClicked:
+                () {}, //=> Navigator.of(context).pushNamed('/ProductScreen'),
           ),
           GridItems(
             iconPath: 'assets/icons/vendor.svg',
@@ -49,7 +51,8 @@ class HomePage extends StatelessWidget {
           GridItems(
             iconPath: 'assets/icons/customers.svg',
             title: 'Customer Detail',
-            onClicked: () => Navigator.of(context).pushNamed('/ProductScreen'),
+            onClicked: () =>
+                Navigator.of(context).pushNamed('/CustomerDetailScreen'),
           ),
           GridItems(
             iconPath: 'assets/icons/orders.svg',

@@ -50,8 +50,8 @@ class CustomerProvider with ChangeNotifier {
           'name': customer.name,
           'companyName': customer.companyName,
           'address': customer.customerAddress,
-          'vendorMobileNo': customer.customerMobileNum,
-          'vendorEmail': customer.customerEmail,
+          'customerMobileNo': customer.customerMobileNum,
+          'customerEmail': customer.customerEmail,
         }),
       );
       final newCustomer = Customer(
@@ -79,8 +79,8 @@ class CustomerProvider with ChangeNotifier {
             'name': newCustomer.name,
             'companyName': newCustomer.companyName,
             'address': newCustomer.customerAddress,
-            'vendorMobileNo': newCustomer.customerMobileNum,
-            'vendorEmail': newCustomer.customerEmail,
+            'customerMobileNo': newCustomer.customerMobileNum,
+            'customerEmail': newCustomer.customerEmail,
           }));
       _items[customerIndex] = newCustomer;
       notifyListeners();
